@@ -1,18 +1,35 @@
-import { Client, CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { Command } from "../typings/Command";
 
-export const data = new SlashCommandBuilder()
-  .setName("help")
-  .setDescription("Creates a new help ticket.")
-  .addStringOption((option) =>
-    option
-      .setName("description")
-      .setDescription("Describe your problem.")
-      .setRequired(true)
-  );
+const helpEmbed = new EmbedBuilder().setDescription(
+  `This is a WIP discord bot that allows you to play/run [Pathfinder 2nd Edition](https://paizo.com/pathfinder) in Discord. Inspired by [Avrae](https://avrae.io/), this bot includes dice roller and initiative tracker.`
+);
 
-export async function execute(interaction: CommandInteraction, client: Client) {
-  await interaction.deferReply({ ephemeral: true });
-  await interaction.editReply({
-    content: "Help is on the way!",
-  });
-}
+export const help: Command = {
+  data: new SlashCommandBuilder()
+    .setName("help")
+    .setDescription("Provides information on how to use this bot.")
+    .addBooleanOption((input) =>
+      input
+        .setName("here")
+        .setDescription(
+          "Post the information in this channel instead of to your DM."
+        )
+    ),
+  execute: async (interaction) => {
+    if (interaction.guildId) {
+      const { user, options } = interaction;
+      if (!options.get("here")?.value) {
+        await interaction.deferReply({ ephemeral: true });
+        await user.send({ embeds: [helpEmbed] });
+        await interaction.editReply({
+          content: "I've sent a DM to you!",
+        });
+        return;
+      }
+    }
+    await interaction.deferReply();
+    await interaction.editReply({ embeds: [helpEmbed] });
+  },
+  prod: true,
+};
