@@ -20,9 +20,7 @@ export const help: Command = {
     .addBooleanOption((input) =>
       input
         .setName("here")
-        .setDescription(
-          "Post the information in this channel instead of to your DM."
-        )
+        .setDescription("Post the information to the channel instead of DM.")
     ),
   execute: async (interaction) => {
     if (interaction.guildId) {
