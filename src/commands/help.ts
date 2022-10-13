@@ -3,11 +3,9 @@ import helpEntries from "../data/helpEntries.json";
 import { Command } from "../typings/Command";
 
 const helpEmbed = new EmbedBuilder()
-  .setDescription(
-    `This is a WIP discord bot that allows you to play/run [Pathfinder 2nd Edition](https://paizo.com/pathfinder) in Discord. Inspired by [Avrae](https://avrae.io/), this bot includes dice roller and initiative tracker.`
-  )
+  .setDescription(helpEntries.description)
   .addFields(
-    helpEntries.map((category) => ({
+    helpEntries.entries.map((category) => ({
       name: category.title,
       value: category.entries
         .map((entry) => `**${entry.title}** - ${entry.description}`)

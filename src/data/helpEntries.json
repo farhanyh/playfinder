@@ -1,6 +1,12 @@
-[
-  {
-    "title": "Core",
-    "entries": [{ "title": "help", "description": "Shows this message." }]
-  }
-]
+{
+  "description": "This is a WIP discord bot that allows you to play/run [Pathfinder 2nd Edition](https://paizo.com/pathfinder) in Discord. Inspired by [Avrae](https://avrae.io/), this bot includes dice roller and initiative tracker.",
+  "entries": [
+    {
+      "title": "Core",
+      "entries": [
+        { "title": "ping", "description": "Replies with a pong." },
+        { "title": "help", "description": "Shows this message." }
+      ]
+    }
+  ]
+}
