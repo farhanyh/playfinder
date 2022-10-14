@@ -7,6 +7,15 @@
         { "title": "ping", "description": "Replies with a pong." },
         { "title": "help", "description": "Shows this message." }
       ]
+    },
+    {
+      "title": "Character Manager",
+      "entries": [
+        {
+          "title": "import",
+          "description": "Import character sheet from [Pathbuilder 2](https://pathbuilder2e.com)."
+        }
+      ]
     }
   ]
 }
