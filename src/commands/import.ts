@@ -1,9 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Types } from "mongoose";
 import { request } from "undici";
 import characterController from "../database/controllers/characterController";
 import userController from "../database/controllers/userController";
-import { CharacterInterface } from "../database/models/character";
 import { Command } from "../typings/Command";
 import { getJSONResponse } from "../undici";
 
