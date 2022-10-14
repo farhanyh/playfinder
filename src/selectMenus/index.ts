@@ -1,0 +1,1 @@
+export { activeCharacter } from "./activeCharacter";

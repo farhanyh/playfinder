@@ -1,24 +1,30 @@
 import { Types } from "mongoose";
 import Character, { CharacterInterface } from "../models/character";
+import userController from "./userController";
 
 export default {
   browse: async () => {
     return await Character.find();
   },
   read: async (id: Types.ObjectId) => {
-    return await Character.findOne({ _id: id });
+    return await Character.findById(id);
   },
   edit: async (id: Types.ObjectId, data: Partial<CharacterInterface>) => {
-    return await Character.findOneAndUpdate({ _id: id }, data);
+    return await Character.findByIdAndUpdate(id, data);
   },
   add: async (data: Partial<CharacterInterface>) => {
     return await Character.create(data);
   },
   delete: async (id: Types.ObjectId) => {
-    return await Character.findOneAndRemove({ _id: id });
+    return await Character.findByIdAndRemove(id);
   },
   findByName: async (name: string) => {
     return await Character.findOne({ name });
+  },
+  findByUser: async (id: string) => {
+    const user = await userController.findByDiscordId(id);
+    if (!user) return [];
+    return await Character.find({ user: user._id });
   },
   parsePathbuilderJSON: (json: any): Partial<CharacterInterface> => {
     const {

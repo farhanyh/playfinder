@@ -38,7 +38,7 @@ export const importCmd: Command = {
 
       const { user: discordUser } = interaction;
       const user =
-        (await userController.read(discordUser.id)) ||
+        (await userController.findByDiscordId(discordUser.id)) ||
         (await userController.add({
           discordId: discordUser.id,
           avatar: discordUser.avatar || undefined,
@@ -71,7 +71,7 @@ export const importCmd: Command = {
 
       const { characters, ...userRest } = user;
       characters.push(finalCharacterData?._id);
-      await userController.edit(user.discordId, {
+      await userController.editByDiscordId(user.discordId, {
         ...userRest,
         characters,
       });
