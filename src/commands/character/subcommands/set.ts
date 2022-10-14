@@ -18,12 +18,7 @@ export const set: Subcommand = {
           )
           .setRequired(true)
       ),
-  execute: async (
-    interaction,
-    user: UserInterface & {
-      _id: Types.ObjectId;
-    }
-  ) => {
+  execute: async (interaction, user: UserInterface) => {
     await interaction.deferReply({ ephemeral: true });
     const selectedName = interaction.options.getString("name", true);
     const selectedCharacter = await characterController.findByName(
