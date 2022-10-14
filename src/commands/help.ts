@@ -23,17 +23,17 @@ export const help: Command = {
         .setDescription("Post the information to the channel instead of DM.")
     ),
   execute: async (interaction) => {
-    if (interaction.guildId) {
-      const { user, options } = interaction;
-      if (!options.get("here")?.value) {
-        await interaction.deferReply({ ephemeral: true });
-        await user.send({ embeds: [helpEmbed] });
-        await interaction.editReply({
-          content: "I've sent a DM to you!",
-        });
-        return;
-      }
-    }
+    // if (interaction.guildId) {
+    //   const { user, options } = interaction;
+    //   if (!options.get("here")?.value) {
+    //     await interaction.deferReply({ ephemeral: true });
+    //     await user.send({ embeds: [helpEmbed] });
+    //     await interaction.editReply({
+    //       content: "I've sent a DM to you!",
+    //     });
+    //     return;
+    //   }
+    // }
     await interaction.deferReply();
     await interaction.editReply({ embeds: [helpEmbed] });
   },
