@@ -74,12 +74,15 @@ export const importCmd: Command = {
       await userController.editByDiscordId(user.discordId, {
         ...userRest,
         characters,
+        activeCharacter: finalCharacterData?._id,
       });
 
-      await interaction.editReply({ content: `Imported character data!` });
+      await interaction.editReply({
+        content: `Imported character data! Active character now changed to ${finalCharacterData?.name}`,
+      });
     } catch (error) {
       await interaction.editReply({ content: `${error}` });
     }
   },
-  prod: false,
+  prod: true,
 };

@@ -34,5 +34,5 @@ export const character: Command = {
     const subcommandName = interaction.options.getSubcommand();
     await subcommands[subcommandName].execute(interaction, user);
   },
-  prod: false,
+  prod: true,
 };
