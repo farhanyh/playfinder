@@ -1,5 +1,4 @@
 import { EmbedBuilder } from "discord.js";
-import { Types } from "mongoose";
 import characterController from "../../../database/controllers/characterController";
 import userController from "../../../database/controllers/userController";
 import { UserInterface } from "../../../database/models/user";
