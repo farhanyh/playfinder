@@ -12,6 +12,10 @@
       "title": "Character Manager",
       "entries": [
         {
+          "title": "character",
+          "description": "Manage your active character."
+        },
+        {
           "title": "import",
           "description": "Import character sheet from [Pathbuilder 2](https://pathbuilder2e.com)."
         }

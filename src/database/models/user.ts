@@ -6,6 +6,7 @@ export interface UserInterface extends Document {
   username?: string;
   discriminator?: string;
   characters: Types.ObjectId[];
+  activeCharacter?: Types.ObjectId;
 }
 
 export const UserSchema = new Schema({
@@ -16,6 +17,10 @@ export const UserSchema = new Schema({
   characters: {
     type: [{ type: Schema.Types.ObjectId, ref: "Character" }],
     default: [],
+  },
+  activeCharacter: {
+    type: Schema.Types.ObjectId,
+    ref: "Character",
   },
 });
 

@@ -117,6 +117,7 @@ export interface CharacterInterface extends Document {
     acItemBonus: number;
     acTotal: number;
   };
+  avatar?: string;
 }
 
 export const CharacterSchema = new Schema({
@@ -250,6 +251,7 @@ export const CharacterSchema = new Schema({
     acItemBonus: { type: Number, default: 0 },
     acTotal: { type: Number, default: 10 },
   },
+  avatar: String,
 });
 
 export default model<CharacterInterface>("character", CharacterSchema);
