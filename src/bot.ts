@@ -17,7 +17,7 @@ client.once("ready", () => {
 });
 
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
+  if (!interaction.isChatInputCommand()) return;
   const { commandName } = interaction;
   commands[commandName].execute(interaction, client);
 });
