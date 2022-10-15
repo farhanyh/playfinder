@@ -24,9 +24,11 @@ export interface CharacterInterface extends Document {
     speed?: number;
     speedBonus?: number;
   };
+  currentHp: number;
+  maxHp: number;
   abilities?: Record<Ability, number>;
   proficiencies?: Proficiencies;
-  lores?: { name: string; proficiency?: number }[];
+  lores?: { name: string; proficiency?: number; keyAbility?: Ability }[];
   feats?: { name: string; source?: string; level?: number }[];
   specials?: string[];
   equipment?: { name: string; qty?: number }[];
@@ -106,6 +108,8 @@ export const CharacterSchema = new Schema({
     speed: { type: Number, default: 25 },
     speedBonus: { type: Number, default: 0 },
   },
+  currentHp: { type: Number, default: 0 },
+  maxHp: { type: Number, default: 0 },
   abilities: {
     str: { type: Number, default: 10 },
     dex: { type: Number, default: 10 },
@@ -149,7 +153,13 @@ export const CharacterSchema = new Schema({
     survival: { type: Number, default: 0 },
     thievery: { type: Number, default: 0 },
   },
-  lores: [{ name: String, proficiency: { type: Number, default: 0 } }],
+  lores: [
+    {
+      name: String,
+      proficiency: { type: Number, default: 0 },
+      keyAbility: { type: String, default: "int" },
+    },
+  ],
   feats: [{ name: String, source: String, level: Number }],
   specials: [String],
   equipment: [{ name: String, qty: Number }],

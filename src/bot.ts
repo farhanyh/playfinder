@@ -13,12 +13,12 @@ const selectMenus = Object(selectMenusModules);
 
 const chatInputCommandHandler = (interaction: ChatInputCommandInteraction) => {
   const { commandName } = interaction;
-  commands[commandName].execute(interaction, client);
+  commands[commandName].execute(interaction);
 };
 
 const selectMenuHandler = (interaction: SelectMenuInteraction) => {
   const { customId } = interaction;
-  selectMenus[customId].execute(interaction, client);
+  selectMenus[customId].execute(interaction);
 };
 
 export const client = new Client({

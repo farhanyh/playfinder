@@ -18,6 +18,10 @@
         {
           "title": "import",
           "description": "Import character sheet from [Pathbuilder 2](https://pathbuilder2e.com)."
+        },
+        {
+          "title": "sheet",
+          "description": "Shows current active character sheet."
         }
       ]
     }

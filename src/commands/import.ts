@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "discord.js";
 import { request } from "undici";
 import characterController from "../database/controllers/characterController";
 import userController from "../database/controllers/userController";
+import { initCharacter } from "../database/models/character/methods";
 import { Command } from "../typings/Command";
 import { getJSONResponse } from "../undici";
 
@@ -60,23 +61,33 @@ export const importCmd: Command = {
         ...parsedData,
         user: user._id,
       };
+      const initedCharacterData = initCharacter(characterDataWithUser);
       const finalCharacterData = dbCharacterData
         ? await characterController.edit(
             dbCharacterData._id,
-            characterDataWithUser
+            initedCharacterData
           )
-        : await characterController.add(characterDataWithUser);
+        : await characterController.add({
+            ...initedCharacterData,
+            currentHp: initedCharacterData.maxHp,
+          });
+      if (!finalCharacterData) {
+        await interaction.editReply({
+          content: "Failed to save character data.",
+        });
+        return;
+      }
 
       const { characters, activeCharacter, ...userRest } = user;
-      characters.push(finalCharacterData?._id);
+      characters.push(finalCharacterData._id);
       await userController.editByDiscordId(user.discordId, {
         ...userRest,
         characters,
-        activeCharacter: finalCharacterData?._id,
+        activeCharacter: finalCharacterData._id,
       });
 
       await interaction.editReply({
-        content: `Imported character data! Active character now changed to ${finalCharacterData?.name}`,
+        content: `Imported character data! Active character now changed to ${finalCharacterData.name}`,
       });
     } catch (error) {
       await interaction.editReply({ content: `${error}` });
