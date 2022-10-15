@@ -67,7 +67,7 @@ export const importCmd: Command = {
           )
         : await characterController.add(characterDataWithUser);
 
-      const { characters, ...userRest } = user;
+      const { characters, activeCharacter, ...userRest } = user;
       characters.push(finalCharacterData?._id);
       await userController.editByDiscordId(user.discordId, {
         ...userRest,

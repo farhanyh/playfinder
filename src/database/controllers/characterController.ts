@@ -34,6 +34,7 @@ export default {
       feats,
       equipment,
       acTotal,
+      spellCasters,
       ...rest
     } = json.build;
     return {
@@ -60,6 +61,7 @@ export default {
         qty: e[1] || undefined,
       })),
       ac: acTotal,
+      spellCasting: spellCasters,
       ...rest,
     };
   },

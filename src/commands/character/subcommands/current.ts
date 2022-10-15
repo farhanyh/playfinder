@@ -1,6 +1,7 @@
 import { EmbedBuilder } from "discord.js";
 import characterController from "../../../database/controllers/characterController";
 import { UserInterface } from "../../../database/models/user";
+import { characterSheetEmbed } from "../../../embedTemplates/characterSheet";
 import { errorEmbed } from "../../../embedTemplates/error";
 import { Subcommand } from "../../../typings/Subcommand";
 
@@ -35,17 +36,7 @@ export const current: Subcommand = {
     }
 
     await interaction.editReply({
-      embeds: [
-        new EmbedBuilder()
-          .setTitle(activeCharacter.name)
-          .setThumbnail(activeCharacter.avatar || null)
-          .setDescription(
-            `Your current active character is ${activeCharacter.name}. All of your checks, saves and actions will use this character's stats.`
-          )
-          .setFooter({
-            text: "To change active characters, use `/character <name>`",
-          }),
-      ],
+      embeds: [characterSheetEmbed(activeCharacter)],
     });
   },
 };

@@ -1,4 +1,5 @@
 import { Document, model, Schema, Types } from "mongoose";
+import { Ability, Proficiencies } from "../../../typings/Character";
 
 export interface CharacterInterface extends Document {
   user: Types.ObjectId;
@@ -8,7 +9,7 @@ export interface CharacterInterface extends Document {
   heritage?: string;
   background?: string;
   class?: string;
-  keyAbility?: "str" | "dex" | "con" | "int" | "wis" | "cha";
+  keyAbility?: Ability;
   alignment?: string;
   gender?: string;
   age?: string;
@@ -23,49 +24,8 @@ export interface CharacterInterface extends Document {
     speed?: number;
     speedBonus?: number;
   };
-  abilities?: {
-    str?: number;
-    dex?: number;
-    con?: number;
-    int?: number;
-    wis?: number;
-    cha?: number;
-  };
-  proficiencies?: {
-    classDC?: number;
-    perception?: number;
-    fortitude?: number;
-    reflex?: number;
-    will?: number;
-    heavy?: number;
-    medium?: number;
-    light?: number;
-    unarmored?: number;
-    advanced?: number;
-    martial?: number;
-    simple?: number;
-    unarmed?: number;
-    castingArcane?: number;
-    castingDivine?: number;
-    castingOccult?: number;
-    castingPrimal?: number;
-    acrobatics?: number;
-    arcana?: number;
-    athletics?: number;
-    crafting?: number;
-    deception?: number;
-    diplomacy?: number;
-    intimidation?: number;
-    medicine?: number;
-    nature?: number;
-    occultism?: number;
-    performance?: number;
-    religion?: number;
-    society?: number;
-    stealth?: number;
-    survival?: number;
-    thievery?: number;
-  };
+  abilities?: Record<Ability, number>;
+  proficiencies?: Proficiencies;
   lores?: { name: string; proficiency?: number }[];
   feats?: { name: string; source?: string; level?: number }[];
   specials?: string[];
