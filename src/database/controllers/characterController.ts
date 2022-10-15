@@ -18,8 +18,10 @@ export default {
   delete: async (id: Types.ObjectId) => {
     return await Character.findByIdAndRemove(id);
   },
-  findByName: async (name: string) => {
-    return await Character.findOne({ name });
+  findByUserAndName: async (id: string, name: string) => {
+    const user = await userController.findByDiscordId(id);
+    if (!user) return null;
+    return await Character.findOne({ user: user._id, name });
   },
   findByUser: async (id: string) => {
     const user = await userController.findByDiscordId(id);

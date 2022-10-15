@@ -54,7 +54,8 @@ export const importCmd: Command = {
         });
         return;
       }
-      const dbCharacterData = await characterController.findByName(
+      const dbCharacterData = await characterController.findByUserAndName(
+        discordUser.id,
         parsedData.name
       );
       const characterDataWithUser = {
