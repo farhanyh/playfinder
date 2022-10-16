@@ -1,0 +1,70 @@
+{
+  "spell": {
+    "id": 45,
+    "name": "Electric Arc",
+    "level": 0,
+    "traditions": "[\"arcane\",\"primal\"]",
+    "cast": "TWO_ACTIONS",
+    "castingComponents": "[\"somatic\",\"verbal\"]",
+    "cost": null,
+    "trigger": null,
+    "requirements": null,
+    "range": "30 feet",
+    "area": null,
+    "targets": "1 or 2 creatures",
+    "savingThrow": "BASIC_REFLEX",
+    "duration": null,
+    "rarity": "COMMON",
+    "description": "An arc of lightning leaps from one target to another. You deal 1d4 + your spellcasting ability modifier electricity damage.",
+    "heightenedOneVal": "PLUS_ONE",
+    "heightenedOneText": "The damage increases by 1d4.",
+    "heightenedTwoVal": null,
+    "heightenedTwoText": null,
+    "heightenedThreeVal": null,
+    "heightenedThreeText": null,
+    "heightenedFourVal": null,
+    "heightenedFourText": null,
+    "isFocusSpell": 0,
+    "isArchived": 0,
+    "contentSrc": "CRB",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-06-05T09:45:42.000Z",
+    "updatedAt": "2020-06-05T09:45:42.000Z"
+  },
+  "traits": [
+    {
+      "id": 123,
+      "name": "Cantrip",
+      "description": "A spell you can cast at will that is automatically heightened to half your level rounded up.",
+      "isImportant": 0,
+      "isHidden": 1,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2019-12-29T13:48:14.000Z",
+      "updatedAt": "2019-12-29T13:48:14.000Z"
+    },
+    {
+      "id": 231,
+      "name": "Evocation",
+      "description": "Effects and magic items with this trait are associated with the evocation school of magic, typically involving energy and elemental forces.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-05-27T07:30:18.000Z",
+      "updatedAt": "2020-05-27T07:30:18.000Z"
+    },
+    {
+      "id": 251,
+      "name": "Electricity",
+      "description": "Effects with this trait deal electricity damage. A creature with this trait has a magical connection to electricity.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-06-05T07:51:32.000Z",
+      "updatedAt": "2020-06-05T07:51:32.000Z"
+    }
+  ]
+}

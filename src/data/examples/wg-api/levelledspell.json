@@ -1,0 +1,70 @@
+{
+  "spell": {
+    "id": 845,
+    "name": "Heal",
+    "level": 1,
+    "traditions": "[\"divine\",\"primal\"]",
+    "cast": "ONE_TO_THREE_ACTIONS",
+    "castingComponents": "[]",
+    "cost": null,
+    "trigger": null,
+    "requirements": null,
+    "range": "varies",
+    "area": null,
+    "targets": "1 willing living creature or 1 undead creature",
+    "savingThrow": null,
+    "duration": null,
+    "rarity": "COMMON",
+    "description": "You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when (activity: Casting this Spell | Cast a Spell) determines its targets, range, area, and other parameters.\n~ ONE-ACTION (somatic): The spell has a range of touch.\n~ TWO-ACTIONS (verbal, somatic): The spell has a range of 30 feet. If you’re healing a living creature, increase the Hit Points restored by 8.\n~ THREE-ACTIONS (material, somatic, verbal): You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.",
+    "heightenedOneVal": "PLUS_ONE",
+    "heightenedOneText": "The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.",
+    "heightenedTwoVal": null,
+    "heightenedTwoText": null,
+    "heightenedThreeVal": null,
+    "heightenedThreeText": null,
+    "heightenedFourVal": null,
+    "heightenedFourText": null,
+    "isFocusSpell": 0,
+    "isArchived": 0,
+    "contentSrc": "CRB",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-08-14T04:53:46.000Z",
+    "updatedAt": "2020-08-14T04:53:46.000Z"
+  },
+  "traits": [
+    {
+      "id": 122,
+      "name": "Necromancy",
+      "description": "Effects and magic items with this trait are associated with the necromancy school of magic, typically involving forces of life and death.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2019-12-29T13:48:14.000Z",
+      "updatedAt": "2019-12-29T13:48:14.000Z"
+    },
+    {
+      "id": 200,
+      "name": "Healing",
+      "description": "A healing effect restores a creature’s body, typically by restoring Hit Points, but sometimes by removing diseases or other debilitating effects.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-05-24T04:05:06.000Z",
+      "updatedAt": "2020-05-24T04:05:06.000Z"
+    },
+    {
+      "id": 201,
+      "name": "Positive",
+      "description": "Effects with this trait heal living creatures with positive energy, deal positive energy damage to undead, or manipulate positive energy. Planes with this trait are awash with life energy of such intensity that it can harm living creatures.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-05-24T04:05:06.000Z",
+      "updatedAt": "2020-05-24T04:05:06.000Z"
+    }
+  ]
+}

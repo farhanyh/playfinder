@@ -1,0 +1,13 @@
+{
+  "trait": {
+    "id": 217,
+    "name": "Secret",
+    "description": "The GM usually rolls the check for this ability in secret.",
+    "isImportant": 1,
+    "isHidden": 0,
+    "isArchived": 0,
+    "homebrewID": null,
+    "createdAt": "2020-05-25T23:11:53.000Z",
+    "updatedAt": "2020-05-25T23:11:53.000Z"
+  }
+}

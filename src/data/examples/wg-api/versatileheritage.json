@@ -1,0 +1,17 @@
+{
+  "heritage": {
+    "id": 4,
+    "name": "Half-Elf",
+    "rarity": "UNIQUE",
+    "description": "Either one of your parents was an elf, or one or both were half-elves. You have pointed ears and other telltale signs of elf heritage. You gain the (trait: elf) trait and low-light vision. In addition, you can select elf and half-elf feats whenever you gain an ancestry feat.\nBy default, half-elves descend from humans, but your GM might allow you to be the offspring of an elf and a different ancestry. In these cases, the GM will let you select the half-elf heritage as the heritage for this other ancestry. The most likely other parent of a half-elf are gnomes and halflings.",
+    "tagID": 654,
+    "code": "GIVE-SENSE-NAME=Low-Light Vision\nGIVE-CHAR-TRAIT-NAME=Elf\nGIVE-CHAR-TRAIT-NAME=Half-Elf",
+    "artworkURL": "/images/community_use/Half-Elf - Varril.png",
+    "isArchived": 0,
+    "contentSrc": "CRB",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-07-19T21:56:34.000Z",
+    "updatedAt": "2020-07-19T21:56:34.000Z"
+  }
+}

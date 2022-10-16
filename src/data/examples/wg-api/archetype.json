@@ -1,0 +1,16 @@
+{
+  "archetype": {
+    "id": 101,
+    "name": "Medic",
+    "description": "You’ve studied countless techniques for providing medical aid, making you a peerless doctor and healer.",
+    "dedicationFeatID": 9628,
+    "isMulticlass": 0,
+    "tagID": 821,
+    "isArchived": 0,
+    "contentSrc": "ADV-PLAYER-GUIDE",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-08-18T17:58:53.000Z",
+    "updatedAt": "2020-08-18T17:58:53.000Z"
+  }
+}

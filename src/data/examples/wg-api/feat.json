@@ -1,0 +1,109 @@
+{
+  "feat": {
+    "id": 8853,
+    "name": "Bon Mot",
+    "actions": "ACTION",
+    "level": 1,
+    "rarity": "COMMON",
+    "prerequisites": "trained in Diplomacy",
+    "frequency": null,
+    "cost": null,
+    "trigger": null,
+    "requirements": null,
+    "description": "You launch an insightful quip at a foe, distracting them. Choose a foe within 30 feet and roll a Diplomacy check against the target’s Will DC.\nCritical Success: The target is distracted and takes a -3 status penalty to Perception and Will saves for 1 minute. The target can end the effect early with a retort to your Bon Mot. This can either be a single action that has the (trait: concentrate) trait or an appropriate skill action to frame their retort. The GM determines which skill actions qualify, though they must take at least 1 action. Typically, the retort needs to use a (trait: linguistic) Charisma-based skill action.\nSuccess: As critical success, but the penalty is -2.\nCritical Failure: Your quip is atrocious. You take the same penalty an enemy would take had you succeeded. This ends after 1 minute or if you issue another Bon Mot and succeed.",
+    "special": null,
+    "canSelectMultiple": 0,
+    "isDefault": 0,
+    "skillID": 7,
+    "minProf": null,
+    "code": null,
+    "isCore": 0,
+    "genericType": "SKILL-FEAT",
+    "genTypeName": null,
+    "isArchived": 0,
+    "contentSrc": "ADV-PLAYER-GUIDE",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-08-15T00:50:53.000Z",
+    "updatedAt": "2020-08-15T00:50:53.000Z"
+  },
+  "traits": [
+    {
+      "id": 8,
+      "name": "General",
+      "description": "A type of feat that any character can select, regardless of ancestry and class, as long as they meet the prerequisites. You can select a feat with this trait when your class grants a general feat.",
+      "isImportant": 0,
+      "isHidden": 1,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-05T19:52:34.000Z",
+      "updatedAt": "2020-01-05T19:52:34.000Z"
+    },
+    {
+      "id": 9,
+      "name": "Skill",
+      "description": "A type of feat that any character can select, regardless of ancestry and class, as long as they meet the prerequisites. You can select a feat with this trait when your class grants a skill feat.",
+      "isImportant": 0,
+      "isHidden": 1,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-05T19:55:15.000Z",
+      "updatedAt": "2020-01-05T19:55:15.000Z"
+    },
+    {
+      "id": 17,
+      "name": "Concentrate",
+      "description": "An action with this trait requires a degree of mental concentration and discipline to perform.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-16T16:39:32.000Z",
+      "updatedAt": "2020-01-16T16:39:32.000Z"
+    },
+    {
+      "id": 35,
+      "name": "Auditory",
+      "description": "Auditory actions and effects rely on sound. An action with the auditory trait can be successfully performed only if the creature using the action can speak or otherwise produce the required sounds. A spell or effect with the auditory trait has its effect only if the target can hear it. This applies only to sound-based parts of the effect, as determined by the GM. This is different from a (trait: sonic) effect, which still affects targets who can’t hear it (such as deaf targets) as long as the effect itself makes sound.",
+      "isImportant": 1,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-16T17:02:08.000Z",
+      "updatedAt": "2020-01-16T17:02:08.000Z"
+    },
+    {
+      "id": 36,
+      "name": "Emotion",
+      "description": "This effect alters a creature’s emotions. Effects with this trait always have the (trait: mental) trait as well. Creatures with special training or that have mechanical or artificial intelligence are immune to emotion effects.",
+      "isImportant": 1,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-16T17:02:39.000Z",
+      "updatedAt": "2020-01-16T17:02:39.000Z"
+    },
+    {
+      "id": 37,
+      "name": "Linguistic",
+      "description": "An effect with this trait depends on language comprehension. A linguistic effect that targets a creature works only if the target understands the language you are using.",
+      "isImportant": 1,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-16T17:06:27.000Z",
+      "updatedAt": "2020-01-16T17:06:27.000Z"
+    },
+    {
+      "id": 38,
+      "name": "Mental",
+      "description": "A mental effect can alter the target’s mind. It has no effect on an object or a mindless creature.",
+      "isImportant": 0,
+      "isHidden": 0,
+      "isArchived": 0,
+      "homebrewID": null,
+      "createdAt": "2020-01-16T17:07:30.000Z",
+      "updatedAt": "2020-01-16T17:07:30.000Z"
+    }
+  ]
+}

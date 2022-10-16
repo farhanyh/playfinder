@@ -1,0 +1,17 @@
+{
+  "background": {
+    "id": 32,
+    "name": "Field Medic",
+    "rarity": "COMMON",
+    "description": "__In the chaotic rush of battle, you learned to adapt to rapidly changing conditions as you administered to battle casualties. You patched up soldiers, guards, or other combatants, and learned a fair amount about the logistics of war.__\nChoose two ability boosts. One must be to Constitution or Wisdom, and one is a free ability boost.\nYou’re trained in the Medicine skill and the Warfare Lore skill. You gain the (feat: Battle Medicine) skill feat.",
+    "boostOne": "CON,WIS",
+    "boostTwo": "ALL",
+    "code": "GIVE-PROF-IN=Medicine:T\nGIVE-LORE=Warfare\nGIVE-FEAT-NAME=Battle Medicine",
+    "isArchived": 0,
+    "contentSrc": "CRB",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-06-19T19:54:50.000Z",
+    "updatedAt": "2020-06-19T19:54:50.000Z"
+  }
+}

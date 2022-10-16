@@ -1,0 +1,11 @@
+{
+  "condition": {
+    "id": 19,
+    "name": "Grabbed",
+    "description": "You’re held in place by another creature, giving you the flat-footed and immobilized conditions. If you attempt a (trait: manipulate) action while grabbed, you must succeed at a DC 5 flat check or it is lost; roll the check after spending the action, but before any effects are applied.",
+    "hasValue": 0,
+    "code": "GIVE-CONDITION=Flat-Footed\nGIVE-CONDITION=Immobilized",
+    "createdAt": "2020-01-25T00:50:33.000Z",
+    "updatedAt": "2020-01-25T00:50:33.000Z"
+  }
+}

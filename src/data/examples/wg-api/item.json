@@ -1,0 +1,33 @@
+{
+  "item": {
+    "id": 208,
+    "name": "Caltrops",
+    "price": 30,
+    "bulk": 0.1,
+    "level": 0,
+    "rarity": "COMMON",
+    "description": "These four-pronged metal spikes can cause damage to a creature’s feet. You can scatter caltrops in an empty square adjacent to you with an (action: Interact) action. The first creature that moves into that square must succeed at a DC 14 Acrobatics check or take 1d4 piercing damage and 1 persistent bleed damage.\nA creature taking persistent bleed damage from caltrops takes a -5-foot penalty to its Speed. Spending an (action: Interact) action to pluck the caltrops free reduces the persistent damage DC by 5 to stop the bleeding.\nOnce a creature takes damage from caltrops, enough caltrops are ruined that other creatures moving into the square are safe. Deployed caltrops can be salvaged and reused if no creatures took damage from them. Otherwise, enough caltrops are ruined that they can’t be salvaged.",
+    "itemType": "TOOL",
+    "craftRequirements": null,
+    "usage": null,
+    "hands": "ONE",
+    "size": "MEDIUM",
+    "isShoddy": 0,
+    "hasQuantity": 1,
+    "quantity": 1,
+    "materialType": null,
+    "hitPoints": 20,
+    "brokenThreshold": 10,
+    "hardness": 5,
+    "hidden": 0,
+    "code": null,
+    "itemStructType": "GENERAL",
+    "isArchived": 0,
+    "contentSrc": "CRB",
+    "homebrewID": null,
+    "version": "1.0",
+    "createdAt": "2020-07-09T05:09:58.000Z",
+    "updatedAt": "2020-07-09T05:09:58.000Z"
+  },
+  "traits": []
+}

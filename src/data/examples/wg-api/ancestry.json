@@ -1,0 +1,223 @@
+{
+  "ancestry": {
+    "id": 176,
+    "name": "Human",
+    "rarity": "COMMON",
+    "hitPoints": 8,
+    "size": "MEDIUM",
+    "speed": 25,
+    "description": "__As unpredictable and varied as any of Golarion’s peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.__\nHumans’ ambition, versatility, and exceptional potential have led to their status as the world’s predominant ancestry. Their empires and nations are vast, sprawling things, and their citizens carve names for themselves with the strength of their sword arms and the power of their spells. Humanity is diverse and tumultuous, running the gamut from nomadic to imperial, sinister to saintly. Many of them venture forth to explore, to map the expanse of the multiverse, to search for long-lost treasure, or to lead mighty armies to conquer their neighbors—for no better reason than because they can.\nIf you want a character who can be just about anything, you should play a human.\n***You Might...***\n* : Strive to achieve greatness, either in your own right or on behalf of a cause.\n* : Seek to understand your purpose in the world.\n* : Cherish your relationships with family and friends.\n***Others Probably...***\n* : Respect your flexibility, your adaptability, and—in most cases—your open-mindedness.\n* : Distrust your intentions, fearing you seek only power or wealth.\n* : Aren't sure what to expect from you and are hesitant to assume your intentions.\n***Physical Description***\nHumans' physical characteristics are as varied as the world's climes. Humans have a wide variety of skin and hair colors, body types, and facial features. Generally speaking, their skin has a darker hue the closer to the equator they or their ancestors lived. Humans reach physical adulthood around the age of 15, though mental maturity occurs a few years later. A typical human can live to be around 90 years old. Humans often intermarry with people of other ancestries, giving rise to children who bear the traits of both parents. The most notable half-humans are half-elves and half-orcs.\n***Society***\nHuman variety also manifests in terms of their governments, attitudes, and social norms. Though the oldest of human cultures can trace their shared histories thousands of years into the past, when compared to the societies of the elves or dwarves, human civilizations seem in a state of constant flux as empires fragment and new kingdoms subsume the old.\n***Alignment and Religion***\nHumanity is perhaps the most heterogeneous of all the ancestries, with a capacity for great evil and boundless good. Some humans assemble into vast raging hordes, while others build sprawling cities. Considered as a whole, most humans are neutral, yet they tend to congregate into nations or communities of a shared alignment, or at least a shared tendency toward an alignment. Humans also worship a wide range of gods and practice many different religions, tending to seek favor from any divine being they encounter.\n***Names***\nUnlike many ancestral cultures, which generally cleave to specific traditions and shared histories, humanity's diversity has resulted in a near-infinite set of names. The humans of northern tribes have different names than those dwelling in southern nation-states. Humans throughout much of the world speak Common (though some continents on Golarion have their own regional common languages), yet their names are as varied as their beliefs and appearances.",
+    "visionSenseID": 1,
+    "additionalSenseID": null,
+    "physicalFeatureOneID": null,
+    "physicalFeatureTwoID": null,
+    "tagID": 835,
+    "artworkURL": "/images/community_use/Human - Kasmir.png",
+    "isArchived": 0,
+    "contentSrc": "CRB",
+    "homebrewID": null,
+    "version": "1.2",
+    "createdAt": "2020-08-23T22:16:27.000Z",
+    "updatedAt": "2020-08-23T22:16:27.000Z"
+  },
+  "heritages": [
+    {
+      "id": 714,
+      "name": "Half-Elf Human",
+      "ancestryID": 176,
+      "rarity": "COMMON",
+      "description": "Either one of your parents was an elf, or one or both were half-elves. You have pointed ears and other telltale signs of elf heritage. You gain the (trait: elf) trait and low-light vision. In addition, you can select elf, half-elf, and human feats whenever you gain an ancestry feat.",
+      "code": "GIVE-CHAR-TRAIT-NAME=Elf\nGIVE-CHAR-TRAIT-NAME=Half-Elf\nGIVE-SENSE-NAME=Low-Light Vision",
+      "isArchived": 0,
+      "contentSrc": "CRB",
+      "indivAncestryName": null,
+      "homebrewID": null,
+      "createdAt": "2020-08-23T22:16:27.000Z",
+      "updatedAt": "2020-08-23T22:16:27.000Z"
+    },
+    {
+      "id": 715,
+      "name": "Half-Orc Human",
+      "ancestryID": 176,
+      "rarity": "COMMON",
+      "description": "One of your parents was an orc, or one or both were half-orcs. You have a green tinge to your skin and other indicators of orc heritage. You gain the (trait: orc) trait and low-light vision. In addition, you can select orc, half-orc, and human feats whenever you gain an ancestry feat.",
+      "code": "GIVE-CHAR-TRAIT-NAME=Orc\nGIVE-CHAR-TRAIT-NAME=Half-Orc\nGIVE-SENSE-NAME=Low-Light Vision",
+      "isArchived": 0,
+      "contentSrc": "CRB",
+      "indivAncestryName": null,
+      "homebrewID": null,
+      "createdAt": "2020-08-23T22:16:27.000Z",
+      "updatedAt": "2020-08-23T22:16:27.000Z"
+    },
+    {
+      "id": 712,
+      "name": "Skilled Human",
+      "ancestryID": 176,
+      "rarity": "COMMON",
+      "description": "Your ingenuity allows you to train in a wide variety of skills. You become trained in one skill of your choice. At 5th level, you become an expert in the chosen skill.",
+      "code": "IF (HAS-LEVEL>=5) {GIVE-SKILL=E} ELSE {GIVE-SKILL=T}",
+      "isArchived": 0,
+      "contentSrc": "CRB",
+      "indivAncestryName": null,
+      "homebrewID": null,
+      "createdAt": "2020-08-23T22:16:27.000Z",
+      "updatedAt": "2020-08-23T22:16:27.000Z"
+    },
+    {
+      "id": 713,
+      "name": "Versatile Human",
+      "ancestryID": 176,
+      "rarity": "COMMON",
+      "description": "Humanity’s versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites.",
+      "code": "GIVE-GENERAL-FEAT=1",
+      "isArchived": 0,
+      "contentSrc": "CRB",
+      "indivAncestryName": null,
+      "homebrewID": null,
+      "createdAt": "2020-08-23T22:16:27.000Z",
+      "updatedAt": "2020-08-23T22:16:27.000Z"
+    },
+    {
+      "id": 789,
+      "name": "Wintertouched Human",
+      "ancestryID": null,
+      "rarity": "COMMON",
+      "description": "The power of winter flows through you. This heritage is most common among the Jadwiga of Irrisen, due to their descent from Baba Yaga, and certain Erutaki touched by the spirits. You gain cold resistance equal to half your level (minimum 1), and you treat environmental cold effects as if they were one step less extreme (incredible cold becomes extreme, extreme cold becomes severe, and so on).",
+      "code": "GIVE-RESISTANCE=Cold:Half_Level",
+      "isArchived": 0,
+      "contentSrc": "LOST-CHAR-GUIDE",
+      "indivAncestryName": "Human",
+      "homebrewID": null,
+      "createdAt": "2020-11-21T00:36:51.000Z",
+      "updatedAt": "2020-11-21T00:36:51.000Z"
+    }
+  ],
+  "languages": [
+    {
+      "id": 1,
+      "name": "Common",
+      "speakers": "Humans, Dwarves, Elves, Halflings, and other common ancestries",
+      "script": "Common",
+      "description": "Common is a relative term used to denote the most prevalent human language spoken in a particular region. In each different region there may be different dialects and variations in the common language. In general, Common is the name for the standard language in which most humanoids speak.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:32:51.000Z",
+      "updatedAt": "2019-12-13T00:32:51.000Z"
+    }
+  ],
+  "bonus_languages": [
+    {
+      "id": 2,
+      "name": "Draconic",
+      "speakers": "Dragons, reptilian humanoids",
+      "script": "Iokharic",
+      "description": "It is believed that Draconic is among the oldest, if not the oldest, language of the multiverse. Because of this, nearly all other languages can trace some roots back to this primordial tongue. Many reptilian races use crude versions of Draconic, including kobolds, lizardfolk, and troglodytes, and present this as proof of their kinship with dragons. It is equally likely that these races were once taught or enslaved by dragons, and it is even possible that they took Draconic for their own simply to make a claim to common ancestors.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:33:09.000Z",
+      "updatedAt": "2019-12-13T00:33:09.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Dwarven",
+      "speakers": "Dwarves",
+      "script": "Dethek",
+      "description": "Dwarven is a clipped language of hard consonants and guttural pronunciation. Dwarven shares its runic alphabet with Terran, along with a number of other similarities. Dwarven names are full of harsh-sounding consonants, and rarely include soft, or sibilant sounds. Honorifics are common in given names, such as \"-sun\" (\"-son\"), \"-dam\" (\"-daughter\"), and \"-hild\" (\"-wife\"). Family names sometimes contain words in (language: Common) such as \"gold\" or \"hammer\". Also, the letters Q and X do not appear in Dwarven.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:33:18.000Z",
+      "updatedAt": "2019-12-13T00:33:18.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Elven",
+      "speakers": "Elves, Half-Elves",
+      "script": "Rellanic",
+      "description": "Elven is believed to be among the eldest, if not the eldest of the languages mortals speak. Scholars conjecture that it was formed when elven speakers of (language: Sylvan) tried to introduce grammatical rules and vocabulary from both (language: Celestial) and (language: Draconic). The elven alphabet contains thirty-three letters (twenty-four consonants and nine vowels). It is a complex language, but sounds poetic in tone and cadence.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:33:30.000Z",
+      "updatedAt": "2019-12-13T00:33:30.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Gnomish",
+      "speakers": "Gnomes",
+      "script": "Gnomish",
+      "description": "In terms of the sheer number of words in its vocabulary, Gnome, or Gnomish, is the largest language known. It has changed dramatically since gnomes first introduced it to the world, a process which has by no means halted. It shares certain similarities with both (language: Aklo) and (language: Sylvan).",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:33:43.000Z",
+      "updatedAt": "2019-12-13T00:33:43.000Z"
+    },
+    {
+      "id": 6,
+      "name": "Goblin",
+      "speakers": "Goblins, Hobgoblins, Bugbears",
+      "script": "Dethek",
+      "description": "Goblin vocabulary is shared by the goblin, bugbear, and hobgoblin races, even if the pronunciations, inflections, and usage differs wildly among them. When spoken by goblins, it is nearly incomprehensible to outsiders, and sounds more like high-pitched yapping. Among the martial hobgoblins, it takes the form of short, barked commands, while the bugbears speak their taunts with a sibilance not heard among the other goblinoid races. It is an extremely flexible language, containing a plethora of terms related to subservience, fear, and death.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:33:53.000Z",
+      "updatedAt": "2019-12-13T00:33:53.000Z"
+    },
+    {
+      "id": 7,
+      "name": "Halfling",
+      "speakers": "Halflings",
+      "script": "Common",
+      "description": "Halfling, which was properly called Luiric, was a language spoken by the halflings of Luiren. Since halflings were so adaptive by nature, the vast majority of halflings outside of Luiren had abandoned their native tongue and spoke (language: Common) or other human languages instead.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:35:16.000Z",
+      "updatedAt": "2019-12-13T00:35:16.000Z"
+    },
+    {
+      "id": 8,
+      "name": "Jotun",
+      "speakers": "Giants, Ogres, Trolls, Ettins, Cyclopes",
+      "script": "Dethek",
+      "description": "The language of the various races of giants that exist today. It was first used by the giant slaves of the runelords in the ages long ago.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:35:34.000Z",
+      "updatedAt": "2019-12-13T00:35:34.000Z"
+    },
+    {
+      "id": 9,
+      "name": "Orcish",
+      "speakers": "Orcs, Half-Orcs",
+      "script": "Dethek",
+      "description": "Much like the folk who speak it, Orc is a harsh and violent language, full of sharp delivery and hard consonants.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:35:45.000Z",
+      "updatedAt": "2019-12-13T00:35:45.000Z"
+    },
+    {
+      "id": 10,
+      "name": "Sylvan",
+      "speakers": "Fey, Centaurs, plant creatures",
+      "script": "Rellanic",
+      "description": "The language of the fey, Sylvan is one of the most linguistically static of all languages. Thought to be nearly as old as (language: Draconic) or (language: Abyssal), Sylvan has a tiny vocabulary, which has barely changed over the eons.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:36:05.000Z",
+      "updatedAt": "2019-12-13T00:36:05.000Z"
+    },
+    {
+      "id": 11,
+      "name": "Undercommon",
+      "speakers": "Drow, Duergars, Xulgaths",
+      "script": "Rellanic",
+      "description": "Undercommon is the most widely spoken language of the Darklands. It evolved from (language: Elven) and was repurposed by the drow over the centuries to fit their new homelands. It orginally incorporated words from other languages, but eventually mutated so far that it was mutually unintelligible with its mother tongues.",
+      "homebrewID": null,
+      "createdAt": "2019-12-13T00:36:50.000Z",
+      "updatedAt": "2019-12-13T00:36:50.000Z"
+    }
+  ],
+  "boosts": ["Anything", "Anything"],
+  "flaws": [],
+  "vision_sense": {
+    "id": 1,
+    "name": "Normal Vision",
+    "description": "A creature with normal vision can see well in normal or bright light but struggles to see in dim light and cannot see in areas of darkness.",
+    "isVisionType": 1,
+    "visionPrecedence": 0,
+    "createdAt": "2019-12-13T00:12:28.000Z",
+    "updatedAt": "2019-12-13T00:12:28.000Z"
+  },
+  "additional_sense": null,
+  "physical_feature_one": null,
+  "physical_feature_two": null
+}
