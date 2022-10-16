@@ -5,7 +5,8 @@
       "title": "Core",
       "entries": [
         { "title": "ping", "description": "Replies with a pong." },
-        { "title": "help", "description": "Shows this message." }
+        { "title": "help", "description": "Shows this message." },
+        { "title": "roll", "description": "Roll some dice." }
       ]
     },
     {
