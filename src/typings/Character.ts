@@ -1,4 +1,7 @@
 export type Ability = "str" | "dex" | "con" | "int" | "wis" | "cha";
+export const isAbility = (value: string): value is Ability => {
+  return ["str", "dex", "con", "int", "wis", "cha"].includes(value);
+};
 
 export interface Proficiencies {
   classDC?: number;
@@ -35,5 +38,23 @@ export interface Proficiencies {
   survival?: number;
   thievery?: number;
 }
+
+export type Skill =
+  | "acrobatics"
+  | "arcana"
+  | "athletics"
+  | "crafting"
+  | "deception"
+  | "diplomacy"
+  | "intimidation"
+  | "medicine"
+  | "nature"
+  | "occultism"
+  | "performance"
+  | "religion"
+  | "society"
+  | "stealth"
+  | "survival"
+  | "thievery";
 
 export type SkillToAbility = Record<keyof Proficiencies, Ability | "none">;
