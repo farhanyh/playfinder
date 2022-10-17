@@ -87,12 +87,16 @@ export class User {
   getActiveCharacter = async (): Promise<Character | null> => {
     const activeCharacterId = (await this.getData()).activeCharacter;
     if (!activeCharacterId) return null;
-    return new Character(activeCharacterId);
+    return await Character.createCharacter(activeCharacterId);
   };
 
   getCharacters = async (): Promise<Character[]> => {
-    return (await this.getData()).characters.map(
-      (characterId) => new Character(characterId)
+    return await Promise.all(
+      (
+        await this.getData()
+      ).characters.map(
+        async (characterId) => await Character.createCharacter(characterId)
+      )
     );
   };
 
@@ -102,7 +106,7 @@ export class User {
       name,
     });
     if (!character) return null;
-    return new Character(character._id);
+    return await Character.createCharacter(character._id);
   };
 
   upsertCharacter = async (

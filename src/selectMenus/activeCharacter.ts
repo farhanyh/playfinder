@@ -24,7 +24,9 @@ export const activeCharacter: SelectMenu = {
       });
       return;
     }
-    const character = await new Character(new Types.ObjectId(hexId)).getData();
+    const character = await (
+      await Character.createCharacter(new Types.ObjectId(hexId))
+    ).getData();
     if (!character) {
       await interaction.editReply({
         embeds: [errorEmbed("Failed to fetch character data.")],

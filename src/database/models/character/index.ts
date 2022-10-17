@@ -227,14 +227,26 @@ export const CharacterSchema = new Schema({
 
 export class Character {
   static model = model<CharacterInterface>("character", CharacterSchema);
+  private data?: (CharacterInterface & { _id: Types.ObjectId }) | null;
 
-  constructor(public id: Types.ObjectId) {}
+  private constructor(public id: Types.ObjectId) {}
+
+  static createCharacter = async (id: Types.ObjectId): Promise<Character> => {
+    const character = new Character(id);
+    await character.cacheData();
+    return character;
+  };
+
+  private cacheData = async (): Promise<void> => {
+    const data = await Character.model.findById(this.id);
+    this.data = data;
+  };
 
   getData = async (): Promise<
     (CharacterInterface & { _id: Types.ObjectId }) | null
   > => {
-    const data = await Character.model.findById(this.id);
-    return data;
+    if (!this.data) await this.cacheData();
+    return this.data!;
   };
 
   setData = async (
@@ -248,12 +260,13 @@ export class Character {
         new: true,
       }
     );
+    await this.cacheData();
   };
 
   static addData = async (user: User, name: string): Promise<Character> => {
     const userId = await user.getId();
     const document = await Character.model.create({ user: userId, name });
-    return new Character(document._id);
+    return await Character.createCharacter(document._id);
   };
 
   static parsePathbuilderJSON = (
