@@ -11,6 +11,7 @@ export const set: Subcommand = {
     const characters = await user.getCharacters();
 
     const selectMenu = activeCharacter.data;
+    selectMenu.options.length = 0;
     for (const character of characters) {
       const data = await character.getData();
       if (data)
