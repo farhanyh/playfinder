@@ -122,6 +122,7 @@ export class User {
     const newCharacter = await this.getCharacterByName(name);
     if (newCharacter) {
       const userCharacters = (await this.getData()).characters;
+      userCharacters.push(newCharacter.id);
       this.setData({
         characters: userCharacters.filter(
           (value, index, self) =>
