@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import { request } from "undici";
-import characterController from "../database/controllers/characterController";
+import { Character } from "../database/models/character";
 import { initCharacter } from "../database/models/character/methods";
 import { User } from "../database/models/user";
 import { Command } from "../typings/Command";
@@ -43,10 +43,8 @@ export const importCmd: Command = {
         username: discordUser.username,
         discriminator: discordUser.discriminator,
       });
-      const userData = await user.getData();
 
-      const parsedData =
-        characterController.parsePathbuilderJSON(characterData);
+      const parsedData = Character.parsePathbuilderJSON(characterData);
       if (!parsedData.name) {
         await interaction.editReply({
           content:
@@ -54,40 +52,16 @@ export const importCmd: Command = {
         });
         return;
       }
-      const dbCharacterData = await characterController.findByUserAndName(
-        discordUser.id,
-        parsedData.name
+      const initedCharacterData = initCharacter(parsedData);
+      const finalCharacterData = await user.upsertCharacter(
+        initedCharacterData
       );
-      const characterDataWithUser = {
-        ...parsedData,
-        user: userData._id,
-      };
-      const initedCharacterData = initCharacter(characterDataWithUser);
-      const finalCharacterData = dbCharacterData
-        ? await characterController.edit(
-            dbCharacterData._id,
-            initedCharacterData
-          )
-        : await characterController.add({
-            ...initedCharacterData,
-            currentHp: initedCharacterData.maxHp,
-          });
       if (!finalCharacterData) {
         await interaction.editReply({
           content: "Failed to save character data.",
         });
         return;
       }
-
-      const { characters } = userData;
-      characters.push(finalCharacterData._id);
-      await user.setData({
-        characters: characters.filter(
-          (value, index, self) =>
-            self.findIndex((v) => v.toString() === value.toString()) === index
-        ),
-        activeCharacter: finalCharacterData._id,
-      });
 
       await interaction.editReply({
         content: `Imported character data!`,

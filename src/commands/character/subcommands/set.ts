@@ -1,24 +1,25 @@
 import { ActionRowBuilder, EmbedBuilder, SelectMenuBuilder } from "discord.js";
-import characterController from "../../../database/controllers/characterController";
-import { UserInterface } from "../../../database/models/user";
+import { User } from "../../../database/models/user";
 import { activeCharacter } from "../../../selectMenus";
 import { Subcommand } from "../../../typings/Subcommand";
 
 export const set: Subcommand = {
   data: (subcommand) =>
     subcommand.setName("set").setDescription("Set your active character."),
-  execute: async (interaction, user: UserInterface) => {
+  execute: async (interaction, user: User) => {
     await interaction.deferReply({ ephemeral: true });
-    const characters = await characterController.findByUser(user.discordId);
+    const characters = await user.getCharacters();
 
     const selectMenu = activeCharacter.data;
-    characters.forEach((character) => {
-      selectMenu.addOptions({
-        label: character.name,
-        description: `${character.ancestry} ${character.class} ${character.level}`,
-        value: character._id.toString(),
-      });
-    });
+    for (const character of characters) {
+      const data = await character.getData();
+      if (data)
+        selectMenu.addOptions({
+          label: data.name,
+          description: `${data.ancestry} ${data.class} ${data.level}`,
+          value: character.id.toString(),
+        });
+    }
 
     await interaction.editReply({
       embeds: [

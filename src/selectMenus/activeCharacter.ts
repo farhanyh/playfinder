@@ -1,6 +1,6 @@
 import { SelectMenuBuilder } from "discord.js";
 import { isValidObjectId, Types } from "mongoose";
-import characterController from "../database/controllers/characterController";
+import { Character } from "../database/models/character";
 import { User } from "../database/models/user";
 import { errorEmbed } from "../embedTemplates/error";
 import { SelectMenu } from "../typings/SelectMenu";
@@ -24,7 +24,7 @@ export const activeCharacter: SelectMenu = {
       });
       return;
     }
-    const character = await characterController.read(new Types.ObjectId(hexId));
+    const character = await new Character(new Types.ObjectId(hexId)).getData();
     if (!character) {
       await interaction.editReply({
         embeds: [errorEmbed("Failed to fetch character data.")],

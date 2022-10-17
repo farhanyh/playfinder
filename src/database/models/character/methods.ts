@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import {
   Ability,
   Proficiencies,
@@ -128,7 +129,9 @@ export const calculateHp = (
   return 0;
 };
 
-export const initCharacter = (character: Partial<CharacterInterface>) => {
+export const initCharacter = (
+  character: Partial<CharacterInterface & { _id: Types.ObjectId }>
+) => {
   character.maxHp = calculateHp(
     character.level || 1,
     character.attributes,

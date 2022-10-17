@@ -1,6 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import abilityNames from "../data/string/abilities.json";
-import characterController from "../database/controllers/characterController";
 import {
   getAbilityMod,
   getSkillMod,
@@ -34,8 +33,9 @@ export const check: Command = {
   execute: async (interaction) => {
     await interaction.deferReply();
 
-    const userData = await new User(interaction.user.id).getData();
-    if (!userData.activeCharacter) {
+    const user = await new User(interaction.user.id);
+    const activeCharacter = await user.getActiveCharacter();
+    if (!activeCharacter) {
       await interaction.editReply({
         embeds: [
           new EmbedBuilder()
@@ -48,10 +48,8 @@ export const check: Command = {
       return;
     }
 
-    const activeCharacter = await characterController.read(
-      userData.activeCharacter
-    );
-    if (!activeCharacter) {
+    const activeCharacterData = await activeCharacter.getData();
+    if (!activeCharacterData) {
       await interaction.editReply({
         embeds: [errorEmbed("Failed to load character data.")],
       });
@@ -61,19 +59,19 @@ export const check: Command = {
     const skill = interaction.options.getString("skill", true);
     const rollExpression = `1d20${formatMod(
       isAbility(skill)
-        ? getAbilityMod(activeCharacter.abilities, skill)
-        : getSkillMod(activeCharacter, skill)
+        ? getAbilityMod(activeCharacterData.abilities, skill)
+        : getSkillMod(activeCharacterData, skill)
     )}`;
 
     await interaction.editReply({
       embeds: [
         new EmbedBuilder()
           .setTitle(
-            `${activeCharacter.name} makes a ${
+            `${activeCharacterData.name} makes a ${
               abilityNames[skill as Ability | Skill]
             } check!`
           )
-          .setThumbnail(activeCharacter.avatar || null)
+          .setThumbnail(activeCharacterData.avatar || null)
           .setDescription(`${rollExpression}: ${formatRoll(rollExpression)}`),
       ],
     });

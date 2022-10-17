@@ -1,5 +1,6 @@
 import { Document, model, Schema, Types } from "mongoose";
 import { Ability, Proficiencies } from "../../../typings/Character";
+import { User } from "../user";
 
 export interface CharacterInterface extends Document {
   user: Types.ObjectId;
@@ -223,5 +224,79 @@ export const CharacterSchema = new Schema({
   },
   avatar: String,
 });
+
+export class Character {
+  static model = model<CharacterInterface>("character", CharacterSchema);
+
+  constructor(public id: Types.ObjectId) {}
+
+  getData = async (): Promise<
+    (CharacterInterface & { _id: Types.ObjectId }) | null
+  > => {
+    const data = await Character.model.findById(this.id);
+    return data;
+  };
+
+  setData = async (
+    data: Partial<CharacterInterface & { _id: Types.ObjectId }>
+  ): Promise<void> => {
+    await Character.model.findByIdAndUpdate(
+      this.id,
+      { $set: data },
+      {
+        upsert: true,
+        new: true,
+      }
+    );
+  };
+
+  static addData = async (user: User, name: string): Promise<Character> => {
+    const userId = await user.getId();
+    const document = await Character.model.create({ user: userId, name });
+    return new Character(document._id);
+  };
+
+  static parsePathbuilderJSON = (
+    json: any
+  ): Partial<CharacterInterface & { _id: Types.ObjectId }> => {
+    const {
+      keyability,
+      attributes,
+      lores,
+      feats,
+      equipment,
+      acTotal,
+      spellCasters,
+      ...rest
+    } = json.build;
+    return {
+      keyAbility: keyability,
+      attributes: {
+        ancestryHp: attributes.ancestryhp,
+        classHp: attributes.classhp,
+        bonusHp: attributes.bonushp,
+        bonusHpPerLevel: attributes.bonushpPerLevel,
+        speed: attributes.speed,
+        speedBonus: attributes.speedBonus,
+      },
+      lores: lores.map((lore: any) => ({
+        name: lore[0] || undefined,
+        proficiency: lore[1] || undefined,
+      })),
+      feats: feats.map((feat: any) => ({
+        name: feat[0] || undefined,
+        source: feat[2] || undefined,
+        level: feat[3] || undefined,
+      })),
+      equipment: equipment.map((e: any) => ({
+        name: e[0] || undefined,
+        qty: e[1] || undefined,
+      })),
+      ac: acTotal,
+      spellCasting: spellCasters,
+      ...rest,
+    };
+  };
+}
 
 export default model<CharacterInterface>("character", CharacterSchema);

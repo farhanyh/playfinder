@@ -19,9 +19,8 @@ export const character: Command = {
   execute: async (interaction) => {
     const { user: discordUser } = interaction;
     const user = new User(discordUser.id);
-    const userData = await user.getData();
 
-    if (userData.characters.length === 0) {
+    if ((await user.getCharacters()).length === 0) {
       await interaction.reply({
         embeds: [
           new EmbedBuilder()
@@ -33,7 +32,7 @@ export const character: Command = {
     }
 
     const subcommandName = interaction.options.getSubcommand();
-    await subcommands[subcommandName].execute(interaction, userData);
+    await subcommands[subcommandName].execute(interaction, user);
   },
   prod: true,
 };

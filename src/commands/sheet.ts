@@ -8,8 +8,7 @@ export const sheet: Command = {
     .setName("sheet")
     .setDescription("Shows current active character sheet."),
   execute: async (interaction) => {
-    const userData = await new User(interaction.user.id).getData();
-    showCurrentCharacterSheet(interaction, userData);
+    showCurrentCharacterSheet(interaction, new User(interaction.user.id));
   },
   prod: true,
 };
