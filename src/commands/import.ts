@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import { request } from "undici";
 import { Character } from "../database/models/character";
-import { initCharacter } from "../database/models/character/methods";
 import { User } from "../database/models/user";
 import { Command } from "../typings/Command";
 import { getJSONResponse } from "../undici";
@@ -52,10 +51,7 @@ export const importCmd: Command = {
         });
         return;
       }
-      const initedCharacterData = initCharacter(parsedData);
-      const finalCharacterData = await user.upsertCharacter(
-        initedCharacterData
-      );
+      const finalCharacterData = await user.upsertCharacter(parsedData);
       if (!finalCharacterData) {
         await interaction.editReply({
           content: "Failed to save character data.",

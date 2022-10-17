@@ -1,9 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import abilityNames from "../data/string/abilities.json";
-import {
-  getAbilityMod,
-  getSkillMod,
-} from "../database/models/character/methods";
 import { User } from "../database/models/user";
 import { errorEmbed } from "../embedTemplates/error";
 import { formatMod } from "../helper/formatMod";
@@ -59,8 +55,8 @@ export const check: Command = {
     const skill = interaction.options.getString("skill", true);
     const rollExpression = `1d20${formatMod(
       isAbility(skill)
-        ? getAbilityMod(activeCharacterData.abilities, skill)
-        : getSkillMod(activeCharacterData, skill)
+        ? await activeCharacter.getAbilityMod(skill)
+        : await activeCharacter.getSkillMod(skill)
     )}`;
 
     await interaction.editReply({

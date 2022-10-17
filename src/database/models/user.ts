@@ -129,6 +129,7 @@ export class User {
         ),
         activeCharacter: newCharacter.id,
       });
+      await newCharacter.initCharacter();
     }
     return newCharacter;
   };

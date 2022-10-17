@@ -32,7 +32,7 @@ export const showCurrentCharacterSheet = async (
   }
 
   await interaction.editReply({
-    embeds: [characterSheetEmbed(activeCharacterData)],
+    embeds: [await characterSheetEmbed(activeCharacter)],
   });
 };
 

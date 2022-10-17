@@ -1,13 +1,9 @@
 import { bold, EmbedBuilder } from "discord.js";
-import { CharacterInterface } from "../database/models/character";
-import {
-  getAbilityMod,
-  getSkillMod,
-} from "../database/models/character/methods";
+import { Character } from "../database/models/character";
 import { formatMod } from "../helper/formatMod";
 import { titleCase } from "../helper/string";
 import { Ability, Proficiencies } from "../typings/Character";
-import { getSkillsWithProf } from "./../database/models/character/methods";
+import { errorEmbed } from "./error";
 
 const characterSize = (size: number) => {
   const dictionary = ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"];
@@ -19,56 +15,64 @@ const traitsFromAncestry = (ancestry?: string) => {
   return [ancestry];
 };
 
-export const characterSheetEmbed = (character: CharacterInterface) => {
+export const characterSheetEmbed = async (character: Character) => {
+  const characterData = await character.getData();
+  if (!characterData) return errorEmbed("Failed to load character data.");
   const traits: string[] = [
-    character.alignment || "N",
-    characterSize(character.size),
-    ...traitsFromAncestry(character.ancestry),
+    characterData.alignment || "N",
+    characterSize(characterData.size),
+    ...traitsFromAncestry(characterData.ancestry),
   ];
 
   return new EmbedBuilder()
-    .setTitle(character.name)
-    .setThumbnail(character.avatar || null)
+    .setTitle(characterData.name)
+    .setThumbnail(characterData.avatar || null)
     .setDescription(
       [
         traits.map((trait) => bold(trait.toUpperCase())).join(" | "),
-        `${character.gender} ${character.ancestry} ${character.class} ${character.level}`,
+        `${characterData.gender} ${characterData.ancestry} ${characterData.class} ${characterData.level}`,
         `${bold("Perception")} ${formatMod(
-          getSkillMod(character, "perception")
+          await character.getSkillMod("perception")
         )}`,
-        `${bold("Languages")} ${character.languages.join(", ")}`,
-        `${bold("Skills")} ${getSkillsWithProf(character)
-          .map(
-            (skill) =>
-              `${titleCase(skill)} ${formatMod(
-                getSkillMod(character, skill as keyof Proficiencies)
-              )}`
+        `${bold("Languages")} ${characterData.languages.join(", ")}`,
+        `${bold("Skills")} ${(
+          await Promise.all(
+            (
+              await character.getSkillsWithProf()
+            ).map(
+              async (skill) =>
+                `${titleCase(skill)} ${formatMod(
+                  await character.getSkillMod(skill as keyof Proficiencies)
+                )}`
+            )
           )
-          .join(", ")}`,
-        character.abilities
-          ? Object.keys(character.abilities)
-              .map(
-                (key) =>
-                  `${bold(titleCase(key))} ${formatMod(
-                    getAbilityMod(character.abilities, key as Ability)
-                  )}`
+        ).join(", ")}`,
+        characterData.abilities
+          ? (
+              await Promise.all(
+                Object.keys(characterData.abilities).map(
+                  async (key) =>
+                    `${bold(titleCase(key))} ${formatMod(
+                      await character.getAbilityMod(key as Ability)
+                    )}`
+                )
               )
-              .join(", ")
+            ).join(", ")
           : "",
         `${bold("AC")} ${
-          character.ac
-            ? character.ac.acTotal
-            : 10 + getAbilityMod(character.abilities, "dex")
+          characterData.ac
+            ? characterData.ac.acTotal
+            : 10 + (await character.getAbilityMod("dex"))
         }; ${bold("Fort")} ${formatMod(
-          getSkillMod(character, "fortitude")
+          await character.getSkillMod("fortitude")
         )}, ${bold("Ref")} ${formatMod(
-          getSkillMod(character, "reflex")
-        )}, ${bold("Will")} ${formatMod(getSkillMod(character, "will"))}`,
-        `${bold("HP")} ${character.currentHp}/${character.maxHp}`,
+          await character.getSkillMod("reflex")
+        )}, ${bold("Will")} ${formatMod(await character.getSkillMod("will"))}`,
+        `${bold("HP")} ${characterData.currentHp}/${characterData.maxHp}`,
         `${bold("Speed")} ${
-          character.attributes
-            ? (character.attributes.speed || 25) +
-              (character.attributes.speedBonus || 0)
+          characterData.attributes
+            ? (characterData.attributes.speed || 25) +
+              (characterData.attributes.speedBonus || 0)
             : 25
         } feet`,
       ].join("\n")

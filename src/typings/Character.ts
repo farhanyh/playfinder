@@ -57,4 +57,6 @@ export type Skill =
   | "survival"
   | "thievery";
 
+export type Modable = Ability | keyof Proficiencies | "none";
+
 export type SkillToAbility = Record<keyof Proficiencies, Ability | "none">;

@@ -1,6 +1,12 @@
 import { Document, model, Schema, Types } from "mongoose";
-import { Ability, Proficiencies } from "../../../typings/Character";
-import { User } from "../user";
+import {
+  Ability,
+  isAbility,
+  Modable,
+  Proficiencies,
+  SkillToAbility,
+} from "../../typings/Character";
+import { User } from "./user";
 
 export interface CharacterInterface extends Document {
   user: Types.ObjectId;
@@ -261,6 +267,144 @@ export class Character {
       }
     );
     await this.cacheData();
+  };
+
+  getSkillMod = async (skill: string): Promise<number> => {
+    const data = await this.getData();
+    if (!data) return 0;
+    let prof = 0;
+    let keyAbility: Ability | "none" = "none";
+    if (data.proficiencies && skill in data.proficiencies) {
+      prof = data.proficiencies[skill as keyof Proficiencies] || 0;
+      const skillToAbility = await this.calculateSkillToAbility();
+      keyAbility = skillToAbility[skill as keyof Proficiencies];
+    } else if (data.lores) {
+      const matchedLore = data.lores.find(
+        (lore) => `${lore.name.toLowerCase()} lore` === skill.toLowerCase()
+      );
+      if (matchedLore) {
+        prof = matchedLore.proficiency || 0;
+        keyAbility = matchedLore.keyAbility || "int";
+      }
+    }
+    return prof > 0
+      ? prof + (await this.getAbilityMod(keyAbility)) + data.level
+      : prof;
+  };
+
+  getAbilityMod = async (ability: Ability | "none"): Promise<number> => {
+    const data = await this.getData();
+    if (!data) return 0;
+    if (ability === "none" || !data.abilities) return 0;
+    return Math.floor((data.abilities[ability] - 10) / 2);
+  };
+
+  private calculateSkillToAbility = async (): Promise<SkillToAbility> => {
+    const data = await this.getData();
+    const skillToAbility: SkillToAbility = {
+      classDC: data ? data.keyAbility || "none" : "none",
+      perception: "wis",
+      fortitude: "con",
+      reflex: "dex",
+      will: "wis",
+      heavy: "none",
+      medium: "none",
+      light: "none",
+      unarmored: "none",
+      advanced: "none",
+      martial: "none",
+      simple: "none",
+      unarmed: "none",
+      castingArcane: "none",
+      castingDivine: "none",
+      castingOccult: "none",
+      castingPrimal: "none",
+      acrobatics: "dex",
+      arcana: "int",
+      athletics: "str",
+      crafting: "int",
+      deception: "cha",
+      diplomacy: "cha",
+      intimidation: "cha",
+      medicine: "wis",
+      nature: "wis",
+      occultism: "int",
+      performance: "cha",
+      religion: "wis",
+      society: "int",
+      stealth: "dex",
+      survival: "wis",
+      thievery: "dex",
+    };
+    return skillToAbility;
+  };
+
+  getSkillsWithProf = async (): Promise<string[]> => {
+    const data = await this.getData();
+    if (!data || !data.proficiencies) return [];
+    const skills = [
+      "acrobatics",
+      "arcana",
+      "athletics",
+      "crafting",
+      "deception",
+      "diplomacy",
+      "intimidation",
+      "medicine",
+      "nature",
+      "occultism",
+      "performance",
+      "religion",
+      "society",
+      "stealth",
+      "survival",
+      "thievery",
+    ];
+    const filteredSkills = skills.filter((skill) => {
+      const prof = data.proficiencies![skill as keyof Proficiencies];
+      if (!prof) return false;
+      return true;
+    });
+    if (data.lores) {
+      filteredSkills.push(
+        ...data.lores.map((lore) => `${lore.name.toLowerCase()} lore`)
+      );
+      filteredSkills.sort();
+    }
+    return filteredSkills;
+  };
+
+  private calculateHp = (
+    level: number,
+    attributes?: {
+      ancestryHp?: number;
+      classHp?: number;
+      bonusHp?: number;
+      bonusHpPerLevel?: number;
+    },
+    conMod?: number
+  ): number => {
+    if (attributes) {
+      const { ancestryHp, classHp, bonusHp, bonusHpPerLevel } = attributes;
+      return (
+        ((classHp || 0) + (bonusHpPerLevel || 0) + (conMod || 0)) * level +
+        (ancestryHp || 0) +
+        (bonusHp || 0)
+      );
+    }
+    return 0;
+  };
+
+  initCharacter = async () => {
+    const character = await this.getData();
+    if (character) {
+      character.maxHp = this.calculateHp(
+        character.level || 1,
+        character.attributes,
+        await this.getAbilityMod("con")
+      );
+      this.setData(character);
+    }
   };
 
   static addData = async (user: User, name: string): Promise<Character> => {
