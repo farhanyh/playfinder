@@ -23,6 +23,14 @@
         {
           "title": "sheet",
           "description": "Shows current active character sheet."
+        },
+        {
+          "title": "check",
+          "description": "Roll a check using your active character."
+        },
+        {
+          "title": "save",
+          "description": "Makes a saving throw with your active character."
         }
       ]
     }
