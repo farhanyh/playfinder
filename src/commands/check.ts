@@ -23,6 +23,9 @@ export const check: Command = {
             }))
           )
           .setRequired(true)
+      )
+      .addIntegerOption((option) =>
+        option.setName("bonus").setDescription("Bonus/penalty to the roll.")
       );
     return data;
   })(),
@@ -53,11 +56,13 @@ export const check: Command = {
     }
 
     const skill = interaction.options.getString("skill", true);
+    const mod = interaction.options.getInteger("bonus");
+
     const rollExpression = `1d20${formatMod(
       isAbility(skill)
         ? await activeCharacter.getAbilityMod(skill)
         : await activeCharacter.getSkillMod(skill)
-    )}`;
+    )}${mod ? formatMod(mod) : ""}`;
 
     await interaction.editReply({
       embeds: [
