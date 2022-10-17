@@ -112,6 +112,7 @@ export class User {
   upsertCharacter = async (
     data: Partial<CharacterInterface & { _id: Types.ObjectId }>
   ): Promise<Character | null> => {
+    data = Character.initCharacter(data);
     const name = data.name || "Unknown Adventurer";
     const character = await this.getCharacterByName(name);
     if (character) await character.setData(data);
@@ -130,7 +131,6 @@ export class User {
         ),
         activeCharacter: newCharacter.id,
       });
-      await newCharacter.initCharacter();
     }
     return newCharacter;
   };

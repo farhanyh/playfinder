@@ -374,7 +374,7 @@ export class Character {
     return filteredSkills;
   };
 
-  private calculateHp = (
+  private static calculateHp = (
     level: number,
     attributes?: {
       ancestryHp?: number;
@@ -395,16 +395,15 @@ export class Character {
     return 0;
   };
 
-  initCharacter = async () => {
-    const character = await this.getData();
-    if (character) {
-      character.maxHp = this.calculateHp(
-        character.level || 1,
-        character.attributes,
-        await this.getAbilityMod("con")
-      );
-      this.setData(character);
-    }
+  static initCharacter = (
+    data: Partial<CharacterInterface & { _id: Types.ObjectId }>
+  ): Partial<CharacterInterface & { _id: Types.ObjectId }> => {
+    data.maxHp = Character.calculateHp(
+      data.level || 1,
+      data.attributes,
+      data.abilities ? Math.floor((data.abilities.con - 10) / 2) : 0
+    );
+    return data;
   };
 
   static addData = async (user: User, name: string): Promise<Character> => {
