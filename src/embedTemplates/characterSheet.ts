@@ -74,6 +74,6 @@ export const characterSheetEmbed = (character: CharacterInterface) => {
       ].join("\n")
     )
     .setFooter({
-      text: "To change active characters, use `/character <name>`",
+      text: "To change active characters, use `/character set`",
     });
 };

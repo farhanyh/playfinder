@@ -16,7 +16,7 @@ export const showCurrentCharacterSheet = async (
         new EmbedBuilder()
           .setDescription("You have not set your active character yet.")
           .setFooter({
-            text: "To change active characters, use `/character <name>`",
+            text: "To change active characters, use `/character set`",
           }),
       ],
     });
