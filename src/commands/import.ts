@@ -36,7 +36,7 @@ export const importCmd: Command = {
       }
 
       const { user: discordUser } = interaction;
-      const user = new User(discordUser.id);
+      const user = await User.createUser(discordUser.id);
       await user.setData({
         discordId: discordUser.id,
         avatar: discordUser.avatar || undefined,

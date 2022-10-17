@@ -31,7 +31,9 @@ export const activeCharacter: SelectMenu = {
       });
       return;
     }
-    await new User(interaction.user.id).setData({
+    await (
+      await User.createUser(interaction.user.id)
+    ).setData({
       activeCharacter: character._id,
     });
     await interaction.editReply({

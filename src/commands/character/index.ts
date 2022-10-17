@@ -18,7 +18,7 @@ export const character: Command = {
   })(),
   execute: async (interaction) => {
     const { user: discordUser } = interaction;
-    const user = new User(discordUser.id);
+    const user = await User.createUser(discordUser.id);
 
     if ((await user.getCharacters()).length === 0) {
       await interaction.reply({

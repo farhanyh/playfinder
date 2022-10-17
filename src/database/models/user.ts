@@ -27,21 +27,37 @@ export const UserSchema = new Schema({
 
 export class User {
   static model = model<UserInterface>("User", UserSchema);
+  private data?: UserInterface & { _id: Types.ObjectId };
 
-  constructor(public discordId: string, private id?: Types.ObjectId) {}
+  private constructor(public discordId: string, private id?: Types.ObjectId) {}
+
+  static createUser = async (
+    discordId: string,
+    id?: Types.ObjectId
+  ): Promise<User> => {
+    const user = new User(discordId, id);
+    await user.cacheData();
+    return user;
+  };
+
+  private cacheData = async (): Promise<void> => {
+    const data =
+      (this.id
+        ? await User.model.findById(this.id)
+        : await User.model.findOne({ discordId: this.discordId })) ||
+      (await User.model.create({ discordId: this.discordId }));
+
+    this.data = data;
+    if (!this.id) this.id = data._id;
+  };
 
   getId = async (): Promise<Types.ObjectId> => {
     return this.id || (await this.getData())._id;
   };
 
   getData = async (): Promise<UserInterface & { _id: Types.ObjectId }> => {
-    const data =
-      (this.id
-        ? await User.model.findById(this.id)
-        : await User.model.findOne({ discordId: this.discordId })) ||
-      (await User.model.create({ discordId: this.discordId }));
-    if (!this.id) this.id = data._id;
-    return data;
+    if (!this.data) await this.cacheData();
+    return this.data!;
   };
 
   setData = async (
@@ -65,6 +81,7 @@ export class User {
           }
         );
     if (result && !this.id) this.id = result._id;
+    await this.cacheData();
   };
 
   getActiveCharacter = async (): Promise<Character | null> => {

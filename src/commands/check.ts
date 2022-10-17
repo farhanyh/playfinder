@@ -33,7 +33,7 @@ export const check: Command = {
   execute: async (interaction) => {
     await interaction.deferReply();
 
-    const user = await new User(interaction.user.id);
+    const user = await User.createUser(interaction.user.id);
     const activeCharacter = await user.getActiveCharacter();
     if (!activeCharacter) {
       await interaction.editReply({
