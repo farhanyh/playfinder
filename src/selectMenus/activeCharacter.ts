@@ -1,7 +1,7 @@
 import { SelectMenuBuilder } from "discord.js";
 import { isValidObjectId, Types } from "mongoose";
 import characterController from "../database/controllers/characterController";
-import userController from "../database/controllers/userController";
+import { User } from "../database/models/user";
 import { errorEmbed } from "../embedTemplates/error";
 import { SelectMenu } from "../typings/SelectMenu";
 
@@ -31,7 +31,7 @@ export const activeCharacter: SelectMenu = {
       });
       return;
     }
-    await userController.edit(character.user, {
+    await new User(interaction.user.id).setData({
       activeCharacter: character._id,
     });
     await interaction.editReply({

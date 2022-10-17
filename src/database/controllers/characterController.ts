@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import Character, { CharacterInterface } from "../models/character";
-import userController from "./userController";
+import { User } from "../models/user";
 
 export default {
   browse: async () => {
@@ -19,12 +19,12 @@ export default {
     return await Character.findByIdAndRemove(id);
   },
   findByUserAndName: async (id: string, name: string) => {
-    const user = await userController.findByDiscordId(id);
+    const user = await new User(id).getData();
     if (!user) return null;
     return await Character.findOne({ user: user._id, name });
   },
   findByUser: async (id: string) => {
-    const user = await userController.findByDiscordId(id);
+    const user = await new User(id).getData();
     if (!user) return [];
     return await Character.find({ user: user._id });
   },

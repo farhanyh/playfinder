@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import userController from "../../database/controllers/userController";
+import { User } from "../../database/models/user";
 import { Command } from "../../typings/Command";
 import { Subcommand } from "../../typings/Subcommand";
 import * as subcommandModules from "./subcommands";
@@ -18,9 +18,10 @@ export const character: Command = {
   })(),
   execute: async (interaction) => {
     const { user: discordUser } = interaction;
-    const user = await userController.findByDiscordId(discordUser.id);
+    const user = new User(discordUser.id);
+    const userData = await user.getData();
 
-    if (!user || user.characters.length === 0) {
+    if (userData.characters.length === 0) {
       await interaction.reply({
         embeds: [
           new EmbedBuilder()
@@ -32,7 +33,7 @@ export const character: Command = {
     }
 
     const subcommandName = interaction.options.getSubcommand();
-    await subcommands[subcommandName].execute(interaction, user);
+    await subcommands[subcommandName].execute(interaction, userData);
   },
   prod: true,
 };

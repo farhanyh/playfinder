@@ -1,13 +1,11 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import { Types } from "mongoose";
 import abilityNames from "../data/string/abilities.json";
 import characterController from "../database/controllers/characterController";
-import userController from "../database/controllers/userController";
 import {
   getAbilityMod,
   getSkillMod,
 } from "../database/models/character/methods";
-import { UserInterface } from "../database/models/user";
+import { User } from "../database/models/user";
 import { errorEmbed } from "../embedTemplates/error";
 import { formatMod } from "../helper/formatMod";
 import { formatRoll } from "../roller";
@@ -36,12 +34,8 @@ export const check: Command = {
   execute: async (interaction) => {
     await interaction.deferReply();
 
-    const user = (await userController.findByDiscordId(
-      interaction.user.id
-    )) as UserInterface & {
-      _id: Types.ObjectId;
-    };
-    if (!user.activeCharacter) {
+    const userData = await new User(interaction.user.id).getData();
+    if (!userData.activeCharacter) {
       await interaction.editReply({
         embeds: [
           new EmbedBuilder()
@@ -55,7 +49,7 @@ export const check: Command = {
     }
 
     const activeCharacter = await characterController.read(
-      user.activeCharacter
+      userData.activeCharacter
     );
     if (!activeCharacter) {
       await interaction.editReply({
