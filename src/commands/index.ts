@@ -6,3 +6,4 @@ export { ping } from "./ping";
 export { roll } from "./roll";
 export { save } from "./save";
 export { sheet } from "./sheet";
+export { wiki } from "./wiki";
