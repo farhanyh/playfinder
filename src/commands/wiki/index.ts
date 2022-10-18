@@ -19,5 +19,5 @@ export const wiki: Command = {
     const subcommandName = interaction.options.getSubcommand();
     await subcommands[subcommandName].execute(interaction);
   },
-  prod: false,
+  prod: true,
 };
