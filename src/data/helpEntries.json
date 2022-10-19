@@ -33,6 +33,19 @@
           "description": "Makes a saving throw with your active character."
         }
       ]
+    },
+    {
+      "title": "Wiki Lookup",
+      "entries": [
+        {
+          "title": "wiki ancestry",
+          "description": "Lookup information about an ancestry."
+        },
+        {
+          "title": "wiki condition",
+          "description": "Lookup information about a condition."
+        }
+      ]
     }
   ]
 }

@@ -1,8 +1,8 @@
 import axios from "axios";
 import config from "../config";
 import { Ancestry } from "../typings/Ancestry";
-import { ApiAncestry, ApiTrait } from "../typings/api";
-import { apiAbilityParser } from "../typings/Constants";
+import { ApiAncestry, ApiCondition, ApiTrait } from "../typings/api";
+import { Condition } from "../typings/Condition";
 import { Trait } from "../typings/Trait";
 
 const client = axios.create({
@@ -57,4 +57,12 @@ export const getTraitById = async (id: number): Promise<Trait> => {
     isArchived: trait.isArchived,
     homebrewID: trait.homebrewID || undefined,
   };
+};
+
+export const getCondition = async (name: string): Promise<Condition> => {
+  const { data } = await client.get<ApiCondition>("condition", {
+    params: { name },
+  });
+  const { condition } = data;
+  return condition;
 };

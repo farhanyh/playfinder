@@ -69,3 +69,12 @@ export interface ApiBaseTrait extends ApiBaseHombrewable {
 export interface ApiTrait {
   trait: ApiBaseTrait;
 }
+
+export interface ApiBaseCondition extends ApiBaseObject {
+  hasValue: number;
+  code: string | null;
+}
+
+export interface ApiCondition {
+  condition: ApiBaseCondition;
+}
