@@ -35,6 +35,15 @@
       ]
     },
     {
+      "title": "Game Tracker",
+      "entries": [
+        {
+          "title": "game",
+          "description": "Help track character information in a game."
+        }
+      ]
+    },
+    {
       "title": "Wiki Lookup",
       "entries": [
         {

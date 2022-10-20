@@ -453,6 +453,20 @@ export class Character {
       ...rest,
     };
   };
+
+  modifyHp = async (amount: number, set: boolean = false) => {
+    const { currentHp: oldHp, maxHp, name } = (await this.getData())!;
+    const newHp = set ? amount : oldHp + amount;
+    const cappedHp = newHp > maxHp ? maxHp : newHp;
+    await this.setData({ currentHp: cappedHp });
+    return {
+      old: oldHp,
+      new: cappedHp,
+      diff: cappedHp - oldHp,
+      name,
+      max: maxHp,
+    };
+  };
 }
 
 export default model<CharacterInterface>("character", CharacterSchema);
