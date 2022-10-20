@@ -457,7 +457,7 @@ export class Character {
   modifyHp = async (amount: number, set: boolean = false) => {
     const { currentHp: oldHp, maxHp, name } = (await this.getData())!;
     const newHp = set ? amount : oldHp + amount;
-    const cappedHp = newHp > maxHp ? maxHp : newHp;
+    const cappedHp = newHp > maxHp ? maxHp : newHp < 0 ? 0 : newHp;
     await this.setData({ currentHp: cappedHp });
     return {
       old: oldHp,
