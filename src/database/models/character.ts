@@ -1,11 +1,12 @@
 import { Document, model, Schema, Types } from "mongoose";
+import { CharacterListener } from "../../system/listeners/CharacterListener";
+import { createObserver, Listener } from "../../system/observer";
 import {
   Ability,
-  isAbility,
-  Modable,
   Proficiencies,
   SkillToAbility,
 } from "../../typings/Character";
+import { BaseEvent } from "../../typings/Events";
 import { User } from "./user";
 
 export interface CharacterInterface extends Document {
@@ -234,8 +235,11 @@ export const CharacterSchema = new Schema({
 export class Character {
   static model = model<CharacterInterface>("character", CharacterSchema);
   private data?: (CharacterInterface & { _id: Types.ObjectId }) | null;
+  private listeners = createObserver<BaseEvent>();
 
-  private constructor(public id: Types.ObjectId) {}
+  private constructor(public id: Types.ObjectId) {
+    new CharacterListener(this);
+  }
 
   static createCharacter = async (id: Types.ObjectId): Promise<Character> => {
     const character = new Character(id);
@@ -246,6 +250,10 @@ export class Character {
   private cacheData = async (): Promise<void> => {
     const data = await Character.model.findById(this.id);
     this.data = data;
+  };
+
+  onEvent = (listener: Listener<BaseEvent>) => {
+    return this.listeners.subscribe(listener);
   };
 
   getData = async (): Promise<
@@ -267,6 +275,7 @@ export class Character {
       }
     );
     await this.cacheData();
+    this.listeners.publish({ id: "Data updated!" });
   };
 
   getSkillMod = async (skill: string): Promise<number> => {

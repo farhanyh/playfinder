@@ -5,6 +5,6 @@ import * as subcommandModules from "./subcommands";
 export const game: Command = createCommandWithSubcommand(
   "game",
   "Help track character information in a game.",
-  false,
+  true,
   subcommandModules
 );
