@@ -47,35 +47,35 @@ export const check: Command = {
       return;
     }
 
-    const activeCharacterData = await activeCharacter.getData();
-    if (!activeCharacterData) {
+    try {
+      const activeCharacterData = activeCharacter.getData();
+
+      const skill = interaction.options.getString("skill", true);
+      const mod = interaction.options.getInteger("bonus");
+
+      const rollExpression = `1d20${formatMod(
+        isAbility(skill)
+          ? activeCharacter.getAbilityMod(skill)
+          : activeCharacter.getSkillMod(skill)
+      )}${mod ? formatMod(mod) : ""}`;
+
       await interaction.editReply({
-        embeds: [errorEmbed("Failed to load character data.")],
+        embeds: [
+          new EmbedBuilder()
+            .setTitle(
+              `${activeCharacterData.name} makes a ${
+                abilityNames[skill as Ability | Skill]
+              } check!`
+            )
+            .setThumbnail(activeCharacterData.avatar || null)
+            .setDescription(`${rollExpression}: ${formatRoll(rollExpression)}`),
+        ],
       });
-      return;
+    } catch (error) {
+      await interaction.editReply({
+        embeds: [errorEmbed((error as Error).message)],
+      });
     }
-
-    const skill = interaction.options.getString("skill", true);
-    const mod = interaction.options.getInteger("bonus");
-
-    const rollExpression = `1d20${formatMod(
-      isAbility(skill)
-        ? await activeCharacter.getAbilityMod(skill)
-        : await activeCharacter.getSkillMod(skill)
-    )}${mod ? formatMod(mod) : ""}`;
-
-    await interaction.editReply({
-      embeds: [
-        new EmbedBuilder()
-          .setTitle(
-            `${activeCharacterData.name} makes a ${
-              abilityNames[skill as Ability | Skill]
-            } check!`
-          )
-          .setThumbnail(activeCharacterData.avatar || null)
-          .setDescription(`${rollExpression}: ${formatRoll(rollExpression)}`),
-      ],
-    });
   },
   prod: true,
 };

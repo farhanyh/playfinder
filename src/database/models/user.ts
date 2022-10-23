@@ -51,13 +51,18 @@ export class User {
     if (!this.id) this.id = data._id;
   };
 
-  getId = async (): Promise<Types.ObjectId> => {
-    return this.id || (await this.getData())._id;
+  private noDataError = () => {
+    return new Error("Failed to fetch user data.");
   };
 
-  getData = async (): Promise<UserInterface & { _id: Types.ObjectId }> => {
-    if (!this.data) await this.cacheData();
-    return this.data!;
+  getId = (): Types.ObjectId => {
+    if (!this.id && !this.data) throw this.noDataError();
+    return this.id || this.data!._id;
+  };
+
+  getData = (): UserInterface & { _id: Types.ObjectId } => {
+    if (!this.data) throw this.noDataError();
+    return this.data;
   };
 
   setData = async (
@@ -85,16 +90,14 @@ export class User {
   };
 
   getActiveCharacter = async (): Promise<Character | null> => {
-    const activeCharacterId = (await this.getData()).activeCharacter;
+    const activeCharacterId = this.getData().activeCharacter;
     if (!activeCharacterId) return null;
     return await Character.createCharacter(activeCharacterId);
   };
 
   getCharacters = async (): Promise<Character[]> => {
     return await Promise.all(
-      (
-        await this.getData()
-      ).characters.map(
+      this.getData().characters.map(
         async (characterId) => await Character.createCharacter(characterId)
       )
     );
@@ -102,7 +105,7 @@ export class User {
 
   getCharacterByName = async (name: string): Promise<Character | null> => {
     const character = await Character.model.findOne({
-      user: await this.getId(),
+      user: this.getId(),
       name,
     });
     if (!character) return null;
@@ -122,7 +125,7 @@ export class User {
       ).setData({ ...data, currentHp: data.maxHp });
     const newCharacter = await this.getCharacterByName(name);
     if (newCharacter) {
-      const userCharacters = (await this.getData()).characters;
+      const userCharacters = this.getData().characters;
       userCharacters.push(newCharacter.id);
       this.setData({
         characters: userCharacters.filter(

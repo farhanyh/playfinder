@@ -44,33 +44,33 @@ export const save: Command = {
       return;
     }
 
-    const activeCharacterData = await activeCharacter.getData();
-    if (!activeCharacterData) {
+    try {
+      const activeCharacterData = activeCharacter.getData();
+
+      const save = interaction.options.getString("save", true);
+      const mod = interaction.options.getInteger("bonus");
+
+      const rollExpression = `1d20${formatMod(
+        activeCharacter.getSkillMod(save)
+      )}${mod ? formatMod(mod) : ""}`;
+
       await interaction.editReply({
-        embeds: [errorEmbed("Failed to load character data.")],
+        embeds: [
+          new EmbedBuilder()
+            .setTitle(
+              `${activeCharacterData.name} makes a ${
+                defenseNames[save as Defense]
+              } save!`
+            )
+            .setThumbnail(activeCharacterData.avatar || null)
+            .setDescription(`${rollExpression}: ${formatRoll(rollExpression)}`),
+        ],
       });
-      return;
+    } catch (error) {
+      await interaction.editReply({
+        embeds: [errorEmbed((error as Error).message)],
+      });
     }
-
-    const save = interaction.options.getString("save", true);
-    const mod = interaction.options.getInteger("bonus");
-
-    const rollExpression = `1d20${formatMod(
-      await activeCharacter.getSkillMod(save)
-    )}${mod ? formatMod(mod) : ""}`;
-
-    await interaction.editReply({
-      embeds: [
-        new EmbedBuilder()
-          .setTitle(
-            `${activeCharacterData.name} makes a ${
-              defenseNames[save as Defense]
-            } save!`
-          )
-          .setThumbnail(activeCharacterData.avatar || null)
-          .setDescription(`${rollExpression}: ${formatRoll(rollExpression)}`),
-      ],
-    });
   },
   prod: true,
 };

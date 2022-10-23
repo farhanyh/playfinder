@@ -1,7 +1,6 @@
 import { ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import { User } from "../../../database/models/user";
 import { characterSheetEmbed } from "../../../embedTemplates/characterSheet";
-import { errorEmbed } from "../../../embedTemplates/error";
 import { Subcommand } from "../../../typings/Subcommand";
 
 export const showCurrentCharacterSheet = async (
@@ -23,16 +22,8 @@ export const showCurrentCharacterSheet = async (
     return;
   }
 
-  const activeCharacterData = await activeCharacter.getData();
-  if (!activeCharacterData) {
-    await interaction.editReply({
-      embeds: [errorEmbed("Failed to load character data.")],
-    });
-    return;
-  }
-
   await interaction.editReply({
-    embeds: [await characterSheetEmbed(activeCharacter)],
+    embeds: [characterSheetEmbed(activeCharacter)],
   });
 };
 

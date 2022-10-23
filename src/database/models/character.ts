@@ -241,6 +241,10 @@ export class Character {
     new CharacterListener(this);
   }
 
+  private noDataError = () => {
+    return new Error("Failed to fetch character data.");
+  };
+
   static createCharacter = async (id: Types.ObjectId): Promise<Character> => {
     const character = new Character(id);
     await character.cacheData();
@@ -256,11 +260,9 @@ export class Character {
     return this.listeners.subscribe(listener);
   };
 
-  getData = async (): Promise<
-    (CharacterInterface & { _id: Types.ObjectId }) | null
-  > => {
-    if (!this.data) await this.cacheData();
-    return this.data!;
+  getData = (): CharacterInterface & { _id: Types.ObjectId } => {
+    if (!this.data) throw this.noDataError();
+    return this.data;
   };
 
   setData = async (
@@ -278,17 +280,16 @@ export class Character {
     this.listeners.publish({ id: "Data updated!" });
   };
 
-  getSkillMod = async (skill: string): Promise<number> => {
-    const data = await this.getData();
-    if (!data) return 0;
+  getSkillMod = (skill: string): number => {
+    if (!this.data) return 0;
     let prof = 0;
     let keyAbility: Ability | "none" = "none";
-    if (data.proficiencies && skill in data.proficiencies) {
-      prof = data.proficiencies[skill as keyof Proficiencies] || 0;
-      const skillToAbility = await this.calculateSkillToAbility();
+    if (this.data.proficiencies && skill in this.data.proficiencies) {
+      prof = this.data.proficiencies[skill as keyof Proficiencies] || 0;
+      const skillToAbility = this.calculateSkillToAbility();
       keyAbility = skillToAbility[skill as keyof Proficiencies];
-    } else if (data.lores) {
-      const matchedLore = data.lores.find(
+    } else if (this.data.lores) {
+      const matchedLore = this.data.lores.find(
         (lore) => `${lore.name.toLowerCase()} lore` === skill.toLowerCase()
       );
       if (matchedLore) {
@@ -297,21 +298,19 @@ export class Character {
       }
     }
     return prof > 0
-      ? prof + (await this.getAbilityMod(keyAbility)) + data.level
+      ? prof + this.getAbilityMod(keyAbility) + this.data.level
       : prof;
   };
 
-  getAbilityMod = async (ability: Ability | "none"): Promise<number> => {
-    const data = await this.getData();
-    if (!data) return 0;
-    if (ability === "none" || !data.abilities) return 0;
-    return Math.floor((data.abilities[ability] - 10) / 2);
+  getAbilityMod = (ability: Ability | "none"): number => {
+    if (!this.data) return 0;
+    if (ability === "none" || !this.data.abilities) return 0;
+    return Math.floor((this.data.abilities[ability] - 10) / 2);
   };
 
-  private calculateSkillToAbility = async (): Promise<SkillToAbility> => {
-    const data = await this.getData();
+  private calculateSkillToAbility = (): SkillToAbility => {
     const skillToAbility: SkillToAbility = {
-      classDC: data ? data.keyAbility || "none" : "none",
+      classDC: this.data ? this.data.keyAbility || "none" : "none",
       perception: "wis",
       fortitude: "con",
       reflex: "dex",
@@ -348,9 +347,8 @@ export class Character {
     return skillToAbility;
   };
 
-  getSkillsWithProf = async (): Promise<string[]> => {
-    const data = await this.getData();
-    if (!data || !data.proficiencies) return [];
+  getSkillsWithProf = (): string[] => {
+    if (!this.data || !this.data.proficiencies) return [];
     const skills = [
       "acrobatics",
       "arcana",
@@ -370,13 +368,13 @@ export class Character {
       "thievery",
     ];
     const filteredSkills = skills.filter((skill) => {
-      const prof = data.proficiencies![skill as keyof Proficiencies];
+      const prof = this.data!.proficiencies![skill as keyof Proficiencies];
       if (!prof) return false;
       return true;
     });
-    if (data.lores) {
+    if (this.data.lores) {
       filteredSkills.push(
-        ...data.lores.map((lore) => `${lore.name.toLowerCase()} lore`)
+        ...this.data.lores.map((lore) => `${lore.name.toLowerCase()} lore`)
       );
       filteredSkills.sort();
     }
@@ -416,7 +414,7 @@ export class Character {
   };
 
   static addData = async (user: User, name: string): Promise<Character> => {
-    const userId = await user.getId();
+    const userId = user.getId();
     const document = await Character.model.create({ user: userId, name });
     return await Character.createCharacter(document._id);
   };
@@ -464,7 +462,8 @@ export class Character {
   };
 
   modifyHp = async (amount: number, set: boolean = false) => {
-    const { currentHp: oldHp, maxHp, name } = (await this.getData())!;
+    if (!this.data) throw this.noDataError();
+    const { currentHp: oldHp, maxHp, name } = this.data;
     const newHp = set ? amount : oldHp + amount;
     const cappedHp = newHp > maxHp ? maxHp : newHp < 0 ? 0 : newHp;
     await this.setData({ currentHp: cappedHp });

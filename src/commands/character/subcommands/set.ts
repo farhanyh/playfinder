@@ -13,7 +13,7 @@ export const set: Subcommand = {
     const selectMenu = activeCharacter.data;
     selectMenu.options.length = 0;
     for (const character of characters) {
-      const data = await character.getData();
+      const data = character.getData();
       if (data)
         selectMenu.addOptions({
           label: data.name,

@@ -24,24 +24,24 @@ export const activeCharacter: SelectMenu = {
       });
       return;
     }
-    const character = await (
-      await Character.createCharacter(new Types.ObjectId(hexId))
-    ).getData();
-    if (!character) {
-      await interaction.editReply({
-        embeds: [errorEmbed("Failed to fetch character data.")],
+    try {
+      const character = (
+        await Character.createCharacter(new Types.ObjectId(hexId))
+      ).getData();
+      await (
+        await User.createUser(interaction.user.id)
+      ).setData({
+        activeCharacter: character._id,
       });
-      return;
+      await interaction.editReply({
+        content: `Active character changed to ${character.name}`,
+        components: [],
+        embeds: [],
+      });
+    } catch (error) {
+      await interaction.editReply({
+        embeds: [errorEmbed((error as Error).message)],
+      });
     }
-    await (
-      await User.createUser(interaction.user.id)
-    ).setData({
-      activeCharacter: character._id,
-    });
-    await interaction.editReply({
-      content: `Active character changed to ${character.name}`,
-      components: [],
-      embeds: [],
-    });
   },
 };
