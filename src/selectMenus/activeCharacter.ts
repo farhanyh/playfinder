@@ -25,16 +25,12 @@ export const activeCharacter: SelectMenu = {
       return;
     }
     try {
-      const character = (
+      const user = await User.createUser(interaction.user.id);
+      const character = await user.setActiveCharacter(
         await Character.createCharacter(new Types.ObjectId(hexId))
-      ).getData();
-      await (
-        await User.createUser(interaction.user.id)
-      ).setData({
-        activeCharacter: character._id,
-      });
+      );
       await interaction.editReply({
-        content: `Active character changed to ${character.name}`,
+        content: `Active character changed to ${character.getData().name}`,
         components: [],
         embeds: [],
       });

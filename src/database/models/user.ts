@@ -137,4 +137,16 @@ export class User {
     }
     return newCharacter;
   };
+
+  setActiveCharacter = async (character: Character) => {
+    try {
+      const data = character.getData();
+      await this.setData({
+        activeCharacter: data._id,
+      });
+      return character;
+    } catch (error) {
+      throw error;
+    }
+  };
 }

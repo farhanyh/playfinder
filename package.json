@@ -27,6 +27,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.6.5",
+    "string-similarity-js": "^2.1.4",
     "undici": "^5.11.0"
   }
 }

@@ -1,0 +1,154 @@
+{
+  "success": true,
+  "build": {
+    "name": "Grogmar",
+    "class": "Fighter",
+    "level": 2,
+    "ancestry": "Orc",
+    "heritage": "Hold-Scarred Orc",
+    "background": "Last Survivor",
+    "alignment": "N",
+    "gender": "Male",
+    "age": "Not set",
+    "deity": "Not set",
+    "size": 2,
+    "keyability": "str",
+    "languages": ["Common", "Orcish"],
+    "attributes": {
+      "ancestryhp": 10,
+      "classhp": 10,
+      "bonushp": 2,
+      "bonushpPerLevel": 0,
+      "speed": 25,
+      "speedBonus": 0
+    },
+    "abilities": {
+      "str": 18,
+      "dex": 12,
+      "con": 16,
+      "int": 10,
+      "wis": 12,
+      "cha": 10
+    },
+    "proficiencies": {
+      "classDC": 2,
+      "perception": 4,
+      "fortitude": 4,
+      "reflex": 4,
+      "will": 2,
+      "heavy": 2,
+      "medium": 2,
+      "light": 2,
+      "unarmored": 2,
+      "advanced": 2,
+      "martial": 4,
+      "simple": 4,
+      "unarmed": 4,
+      "castingArcane": 0,
+      "castingDivine": 0,
+      "castingOccult": 0,
+      "castingPrimal": 0,
+      "acrobatics": 2,
+      "arcana": 0,
+      "athletics": 2,
+      "crafting": 0,
+      "deception": 0,
+      "diplomacy": 0,
+      "intimidation": 2,
+      "medicine": 2,
+      "nature": 0,
+      "occultism": 0,
+      "performance": 0,
+      "religion": 0,
+      "society": 0,
+      "stealth": 0,
+      "survival": 2,
+      "thievery": 0
+    },
+    "feats": [
+      ["Battle Medicine", null],
+      ["Shield Block", null],
+      ["Diehard", null],
+      ["Hold-Scarred Orc", null, "Heritage", 1],
+      ["Snagging Strike", null, "Class Feat", 1],
+      ["Orc Weapon Familiarity", null, "Ancestry Feat", 1],
+      ["Titan Wrestler", null, "Skill Feat", 2],
+      ["Intimidating Strike", null, "Class Feat", 2]
+    ],
+    "specials": ["Attack of Opportunity", "Darkvision", "Hold-Scarred Orc"],
+    "lores": [["Undead", 2]],
+    "equipment": [
+      ["Backpack", 1],
+      ["Bedroll", 1],
+      ["Chalk", 10],
+      ["Flint and Steel", 1],
+      ["Rope", 1],
+      ["Rations", 3],
+      ["Torch", 5],
+      ["Waterskin", 1],
+      ["Soap", 1]
+    ],
+    "specificProficiencies": {
+      "trained": [],
+      "expert": [],
+      "master": [],
+      "legendary": []
+    },
+    "weapons": [
+      {
+        "name": "Orc Knuckle Dagger",
+        "qty": 1,
+        "prof": "simple",
+        "die": "d6",
+        "pot": 0,
+        "str": "",
+        "mat": null,
+        "display": "Orc Knuckle Dagger",
+        "runes": []
+      },
+      {
+        "name": "Orc Necksplitter",
+        "qty": 1,
+        "prof": "martial",
+        "die": "d8",
+        "pot": 0,
+        "str": "",
+        "mat": null,
+        "display": "Orc Necksplitter",
+        "runes": []
+      }
+    ],
+    "money": { "pp": 0, "gp": 6, "sp": 4, "cp": 0 },
+    "armor": [
+      {
+        "name": "Hide",
+        "qty": 1,
+        "prof": "medium",
+        "pot": 0,
+        "res": "",
+        "mat": null,
+        "display": "Hide",
+        "worn": true,
+        "runes": []
+      },
+      {
+        "name": "Steel Shield",
+        "qty": 1,
+        "prof": "shield",
+        "pot": 0,
+        "res": 0,
+        "worn": false,
+        "runes": []
+      }
+    ],
+    "spellCasters": [],
+    "formula": [],
+    "pets": [],
+    "acTotal": {
+      "acProfBonus": 4,
+      "acAbilityBonus": 1,
+      "acItemBonus": 3,
+      "acTotal": 18
+    }
+  }
+}
